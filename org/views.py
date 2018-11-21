@@ -252,6 +252,11 @@ def get_html(request):
 def org_view(request, item):
     # print(item)
     user = request.user
+    # path_dict = {
+    #     '24': 'guo.jpg'
+    # }
+    # print(user.id)
+    # photo_path = path_dict[resume_id]
     if item in ['resumes', 'positions', 'create', 'create_success', 'spss']:
         return render(request, 'org_view.html', locals())
     else:
@@ -260,3 +265,9 @@ def org_view(request, item):
 
 def test_eacharts(request):
     return render(request, 'data_spss/qiye.html')
+
+
+# def get_photo():
+#
+#
+#     return JsonResponse({"path":photo_path})

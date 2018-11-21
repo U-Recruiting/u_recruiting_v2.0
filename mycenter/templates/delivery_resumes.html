@@ -80,7 +80,7 @@
                         <h1 id="titleDelivery" style="background-color: #F4A002"><em></em>已投递简历状态</h1>
                         <a class="d_refresh" href="javascript:;">刷新</a>
                     </dt>
-                    <dd>
+                    <dd id="replace">
                         <div class="delivery_tabs">
                             <ul class="reset">
                                 <li class="current" id="allDelivery">
@@ -114,36 +114,38 @@
                 <div class="mycenterR" id="myInfo">
                     <h2>我的职位管理</h2>
                     <a href="{% url 'mycollection' %}"><p>我收藏的职位</p></a>
-                    <a><p>我投递的职位</p></a>
+                    <a href="{% url 'delivery_resumes' %}"><p>我投递的职位</p></a>
+
+                    <a href="javascript:spss()"><p>数据分析</p></a>
                 </div><!--end #myInfo-->
 
-{#                <div class="mycenterR" id="myRecommend">#}
-{#                    <h2>猜你喜欢 <i>匹配度</i></h2>#}
-{#                    <ul class="reset">#}
-{#                        <li>#}
-{#                            <a target="_blank" href="http://www.lagou.com/jobs/22194.html">#}
-{#                                <span class="f16" style="font-size: 16px">产品经理</span>#}
-{#                                <span class="c7" style="font-size: 14px">广州百田</span>#}
-{#                                <em>92%</em>#}
-{#                            </a>#}
-{#                        </li>#}
-{#                        <li>#}
-{#                            <a target="_blank" href="http://www.lagou.com/jobs/148004.html">#}
-{#                                <span class="f16" style="font-size: 16px">产品经理</span>#}
-{#                                <span class="c7" style="font-size: 14px">短讯神州</span>#}
-{#                                <em>92%</em>#}
-{#                            </a>#}
-{#                        </li>#}
-{#                        <li>#}
-{#                            <a target="_blank" href="http://www.lagou.com/jobs/46793.html">#}
-{#                                <span class="f16" style="font-size: 16px">产品经理</span>#}
-{#                                <span class="c7" style="font-size: 14px">爱拍</span>#}
-{#                                <em>89%</em>#}
-{#                            </a>#}
-{#                        </li>#}
-{#                    </ul>#}
-{#                    <a class="more" href="{% url 'myrecommand' %}">更多推荐职位&gt;&gt;</a>#}
-{#                </div><!--end #myRecommend-->#}
+                {#                <div class="mycenterR" id="myRecommend">#}
+                {#                    <h2>猜你喜欢 <i>匹配度</i></h2>#}
+                {#                    <ul class="reset">#}
+                {#                        <li>#}
+                {#                            <a target="_blank" href="http://www.lagou.com/jobs/22194.html">#}
+                {#                                <span class="f16" style="font-size: 16px">产品经理</span>#}
+                {#                                <span class="c7" style="font-size: 14px">广州百田</span>#}
+                {#                                <em>92%</em>#}
+                {#                            </a>#}
+                {#                        </li>#}
+                {#                        <li>#}
+                {#                            <a target="_blank" href="http://www.lagou.com/jobs/148004.html">#}
+                {#                                <span class="f16" style="font-size: 16px">产品经理</span>#}
+                {#                                <span class="c7" style="font-size: 14px">短讯神州</span>#}
+                {#                                <em>92%</em>#}
+                {#                            </a>#}
+                {#                        </li>#}
+                {#                        <li>#}
+                {#                            <a target="_blank" href="http://www.lagou.com/jobs/46793.html">#}
+                {#                                <span class="f16" style="font-size: 16px">产品经理</span>#}
+                {#                                <span class="c7" style="font-size: 14px">爱拍</span>#}
+                {#                                <em>89%</em>#}
+                {#                            </a>#}
+                {#                        </li>#}
+                {#                    </ul>#}
+                {#                    <a class="more" href="{% url 'myrecommand' %}">更多推荐职位&gt;&gt;</a>#}
+                {#                </div><!--end #myRecommend-->#}
 
             </div>
         </div>
@@ -204,6 +206,7 @@
         });
     });
 
+
     function remove_current() {
         $('#allDelivery').removeClass('current');
         $('#successDelivery').removeClass('current');
@@ -225,13 +228,13 @@
                             "<li>\n" +
                             "    <div class=\"d_item\">" +
                             "      <h2 title=\"随便写\">" +
-                            "      <a target=\"_blank\" href=\""+resume.position_id+"\">" +
-                            "      <em>"+ resume.position_name +"</em>" +
-                            "      <span>（"+resume.mix_salary+"-"+resume.max_salary+"）</span></a></h2>" +
+                            "      <a target=\"_blank\" href=\"" + resume.position_id + "\">" +
+                            "      <em>" + resume.position_name + "</em>" +
+                            "      <span>（" + resume.mix_salary + "-" + resume.max_salary + "）</span></a></h2>" +
                             "      <div class=\"clear\"></div>" +
                             "        <a title=\"公司名称\" class=\"d_jobname\" target=\"_blank\">" +
-                            "          "+ resume.org_name +" <span>["+ resume.work_city +"]</span></a>" +
-                            "        <span class=\"d_time\">"+ resume.post_date +"</span>\n" +
+                            "          " + resume.org_name + " <span>[" + resume.work_city + "]</span></a>" +
+                            "        <span class=\"d_time\">" + resume.post_date + "</span>\n" +
                             "        <div class=\"clear\"></div>\n" +
                             "        <div class=\"d_resume\">\n" +
                             "        简历状态：\n" +
@@ -240,6 +243,18 @@
                 )
             }
         )
+    }
+
+    function spss() {
+        $.post(
+            '{% url 'get_spss' %}',
+            {},
+            function (response) {
+                $('#titleDelivery').html('<em></em>数据分析');
+                $('#replace').replaceWith(response)
+            }
+        );
+
     }
 </script>
 

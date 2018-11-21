@@ -73,7 +73,7 @@ def delivery_resumes(request):
             logined = False
     else:
         logined = False
-    return render(request, 'delivery_resumes.html',locals())
+    return render(request, 'delivery_resumes.html', locals())
 
 
 def get_delivery_status(request):
@@ -116,3 +116,7 @@ def format_position(status_list):
         }
         position_list.append(position_dict)
     return position_list
+
+
+def get_spss(request):
+    return render(request, 'person_jianli.html')

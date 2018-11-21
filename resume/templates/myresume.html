@@ -9,14 +9,14 @@
                 <div class="fl" id="resume_name">
                     <div class="nameShow fl">
                         <h1 title="{{ resume.name }}的简历">{{ resume.name }}</h1>
-                        <span class="rename">重命名</span> | <a target="_blank" href="h/resume/preview.html">预览</a>
+                        <span class="rename">重命名</span> | <a target="_blank" href="/resume/preview/">预览</a>
                     </div>
                     <form class="fl dn" id="resumeNameForm" method="post">
                         {% csrf_token %}
                         <input type="text" id="resumeNameText" value="{{ user_real_name }}的简历" name="resumeName"
                                class="nameEdit c9">
                         <input type="submit" class="resumeNameSubmit" value="保存"> | <a target="_blank"
-                                                                                       href="h/resume/preview.html">预览</a>
+                                                                                       href="/resume/preview">预览</a>
                         {#                        <button type="button" id="'testbutton">najskbdajk</button>#}
                     </form>
                 </div>
@@ -1380,7 +1380,7 @@
                 </div><!--end #educationalBackground-->
 
                 <div class="profile_box" id="selfDescription">
-                    <h2>自我描述</h2>
+                    <h2><自我></自我>描述</h2>
                     <span class="c_edit dn"></span>
                     <div class="descriptionShow dn">
 

@@ -48,10 +48,10 @@ def complete_orginfo(request):
 
         company_name = request.POST.get('company_name', '')
         logo = request.FILES.get('pic', '')
-        city = request.POST.get('city', '')
-        type = request.POST.get('elect_industry_hidden', '')
+        city = request.POST.get('company_city', '')
+        type = request.POST.get('select_industry_hidden', '')
         scale = request.POST.get('select_scale_hidden', '')
-        tages = request.POST.get('label', '')
+        tages = request.POST.get('labels', '')
         desc = request.POST.get('desc', '')
         createTime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         orginfo = user.orginfo_set.all().first()

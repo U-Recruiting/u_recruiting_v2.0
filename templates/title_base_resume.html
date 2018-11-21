@@ -41,7 +41,7 @@
     <!-- 菜单栏-->
     <div id="header">
         <div class="index_wrapper">
-            <a href="index.html" class="logo">
+            <a href="/" class="logo">
                 <img src="{% static 'imgs/logo.png' %}" width="229" height="43" alt="淘职-让求职更简单"/>
             </a>
             <ul class="reset" id="navheader">
@@ -57,7 +57,7 @@
                     <div class="navheader_dropdown_content">
                         <a href="{% url 'myresume' %}">我的简历</a>
                         <a href="{% url 'mycollection' %}">我的收藏</a>
-                        <a href="{% url 'mydelivery' %}">我的投递</a>
+                        <a href="{% url 'delivery_resumes' %}">我的投递</a>
                         <a href="">账号设置</a>
                         <a href="{% url 'logout' %}">退出</a>
                     </div>

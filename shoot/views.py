@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from index.models import PositionInfo, PositionResumeStatus
 from user.models import MyUser
+import datetime
 # Create your views here.
 import json
 
@@ -36,9 +37,12 @@ def shoot(request):
         print('asadmaskdnajdks')
         resume = user.resume_set.first()
         position.resume.add(resume)
+
+        date=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
         prs = PositionResumeStatus.objects.filter(position_id=position.id, resume_id=resume.id)
         if not prs:
-            PositionResumeStatus(position_id=position.id, resume_id=resume.id, status='received').save()
+            PositionResumeStatus(position_id=position.id, resume_id=resume.id,datetime=date, status='received').save()
         data = {"to": "success"}
     else:
         url = '/user/login/?next=/position/{0}'.format(position_id)

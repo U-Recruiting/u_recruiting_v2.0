@@ -1,0 +1,217 @@
+<dd id="replace">
+    {% load static %}
+    <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="{% static 'js/echarts.min.js' %}"></script>
+
+
+    <div id="div01" style="width:600px;height:300px;margin:auto"></div>
+    <div style="height:50px;margin:auto"></div>
+    <div id="div02" style="width:600px;height:300px;margin:auto"></div>
+    <div style="height:50px;margin:auto"></div>
+    <div id="div03" style="width:600px;height:300px;margin:auto"></div>
+    <div style="height:50px;margin:auto"></div>
+    <div id="div04" style="width:600px;height:300px;margin:auto"></div>
+
+    <script>
+        var myChart2 = echarts.init(document.getElementById('div02'));
+        var myChart1 = echarts.init(document.getElementById('div01'));
+        var myChart3 = echarts.init(document.getElementById('div03'));
+        var myChart4 = echarts.init(document.getElementById('div04'));
+
+        option1 = {
+            title: {
+                text: '简历反馈分析（数量）'
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    label: {
+                        backgroundColor: '#6a7985'
+                    }
+                }
+            },
+            legend: {
+                data: ['简历通过', '简历不合格', '简历无反馈'],
+                top:'10%',
+                right:'0%',
+            },
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: ['2018-11-16', '2018-11-17', '2018-11-18', '2018-11-19', '2018-11-20', '2018-11-21', '2018-11-22']
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value'
+                }
+            ],
+            series: [
+                {
+                    name: '简历通过',
+                    type: 'line',
+                    stack: '总量',
+                    areaStyle: {},
+                    data: [3, 4, 2, 1, 2, 3, 0]
+                },
+                {
+                    name: '简历不合格',
+                    type: 'line',
+                    stack: '总量',
+                    areaStyle: {},
+                    data: [2, 1, 2, 1, 1, 1, 0]
+
+                },
+                {
+                    name: '简历无反馈',
+                    type: 'line',
+                    stack: '总量',
+                    areaStyle: {},
+                    data: [3, 4, 2, 1, 1, 2, 2]
+
+                }
+            ]
+        };
+
+        option2 = {
+            title: {
+                text: '简历反馈分析（职位）'
+            },
+            tooltip: {},
+            legend: {
+                data: ['投递数量', '反馈面试'],
+                right:'right',
+            },
+            radar: {
+                // shape: 'circle',
+                name: {
+                    textStyle: {
+                        color: '#fff',
+                        backgroundColor: '#999',
+                        borderRadius: 3,
+                        padding: [3, 5]
+                    }
+                },
+                indicator: [
+                    {name: '软件', max: 45},
+                    {name: '设计', max: 45},
+                    {name: '通信', max: 45},
+                    {name: '产品', max: 45},
+                    {name: '运营', max: 45},
+                    {name: '其他', max: 45}
+                ]
+            },
+            series: [{
+                name: '预算 vs 开销（Budget vs spending）',
+                type: 'radar',
+                // areaStyle: {normal: {}},
+                data: [
+                    {
+                        value: [40, 36, 36, 35, 42, 26],
+                        name: '投递数量'
+                    },
+                    {
+                        value: [35, 20, 28, 31, 30, 17],
+                        name: '反馈面试'
+                    }
+                ]
+            }]
+        };
+
+        option3 = {
+            title: {
+                text: '行业占比',
+                x: 'left'
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            legend: {
+                orient: 'vertical',
+                right: 'right',
+                top: 40,
+                data: ['软件', '设计', '通信', '产品', '其他']
+            },
+            series: [
+                {
+                    name: '访问来源',
+                    type: 'pie',
+                    radius: '55%',
+                    center: ['50%', '60%'],
+                    data: [
+                        {value: 22, name: '软件'},
+                        {value: 25, name: '设计'},
+                        {value: 17, name: '通信'},
+                        {value: 13, name: '产品'},
+                        {value: 20, name: '其他'}
+                    ],
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        };
+
+        option4 = {
+            title: {
+                text: '薪资分析'
+            },
+            angleAxis: {
+                type: 'category',
+                data: ['软件', '设计', '通信', '产品', '其他',],
+                z: 12
+            },
+            radiusAxis: {},
+            polar: {},
+            series: [{
+                type: 'bar',
+                data: [2, 2, 3, 3, 3],
+                coordinateSystem: 'polar',
+                name: '5k以下',
+                stack: 'a'
+            }, {
+                type: 'bar',
+                data: [5, 5, 5, 4, 4],
+                coordinateSystem: 'polar',
+                name: '5k-8k',
+                stack: 'a'
+            }, {
+                type: 'bar',
+                data: [2, 1, 1, 2, 1],
+                coordinateSystem: 'polar',
+                name: '8k以上',
+                stack: 'a'
+            }],
+            legend: {
+                show: true,
+                right: 'right',
+                data: ['5k以下', '5k-8k', '8k以上']
+            }
+        };
+
+
+        myChart2.setOption(option2);
+        myChart1.setOption(option1);
+        myChart3.setOption(option3);
+        myChart4.setOption(option4);
+
+    </script>
+</dd>

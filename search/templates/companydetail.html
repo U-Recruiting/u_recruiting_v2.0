@@ -40,7 +40,7 @@
             <ul class="reset" id="navheader">
                 <li><a href="/">首页</a></li>
                 <li><a href="{% url 'company' %}">公司</a></li>
-                <li class="current"><a href="{% url 'myresume' %}">我的简历</a></li>
+                <li><a href="{% url 'myresume' %}">我的简历</a></li>
             </ul>
             <!-- 用户已登录-->
             {% if logined %}
@@ -260,7 +260,7 @@
                                         <span class="c9">[{{ position.city }}]</span>
                                     </div>
                                     <span><em
-                                            class="c7">月薪：</em>{{ position.start_salary }}-{{ position.end_salary }}</span>
+                                            class="c7">月薪：</em>{{ position.start_salary }}k-{{ position.end_salary }}k</span>
                                     <span><em class="c7">经验：</em>{{ position.work_exp }}</span>
                                     <span><em class="c7">最低学历： </em>{{ position.edu_exp }}</span>
                                     <br/>

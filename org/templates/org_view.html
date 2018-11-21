@@ -338,10 +338,10 @@
             case 'forward':
                 if (confirm("确定转发吗?")) {
                     //点击确定后操作
-                    var subject = '';
-                    var resumeId = '';
-                    var body = '您好，这是投递我司【】岗位的【】的简历！简历详情：' + resumeId;
-                    window.location.href = 'mailto: 123@13.com?subject=' + subject + '&body=' + body
+                    var subject = '简历';
+                    var resumeId = '见附件';
+                    var body = '您好，这是我刚刚收到的简历，请您过目！\n简历详情：' + resumeId;
+                    window.location.href = 'mailto: hr_leader@chinaunicom.cn?subject=' + subject + '&body=' + body
                 }
                 break;
             case 'delete':
@@ -458,6 +458,7 @@
     $.ajaxSettings.async = false;
     <!-- 获取发布职位页面输入内容 -->
     $(function () {
+
         $('#finishCreate').click(function () {
             $.post(
                 "{% url 'org:create' %}",
@@ -494,6 +495,7 @@
     })
 </script>
 <script>
+
     <!--加载列表-->
     $.ajaxSettings.async = false;
 
@@ -508,10 +510,10 @@
                     function (i, resume) {
                         $('#view_list').html($('#view_list').html() +
                             "<li id=\"" + resume.resume_id + "\" class=\"onlineResume\" position_id=\"" + resume.position_id + "\">" +
-                            "  <div class=\"resumeShow\">" +
+                            "  <div class=\"resumeShow\">" + "<label id='"+resume.resume_id+"' hidden></label>"+
                             "      <a title=\"预览" + resume.name + "的简历\" target=\"_blank\" class=\"resumeImg\"" +
                             "         href=\"" + resume.position_id + "\">" +
-                            "          <img src=\"/static/img/default_headpic.png\">" +
+                            "          <img id='"+ resume.resume_id +"' src=\"/static/img/default_headpic.png\">" +
                             "      </a>" +
                             "      <div class=\"resumeIntro\">" +
                             "          <h3 class=\"unread\">" +
@@ -524,7 +526,7 @@
                             "          <span class=\"fr\">投递时间：" + resume.post_date + "</span>" +
                             "          <div>" +
                             "              " + resume.name +
-                            " / " + resume.sex + " / " + resume.education + " / " + resume.work_years + "年 / " + resume.city + " <br>" +
+                            " / " + resume.sex + " / " + resume.education + " / " + resume.work_years + " / " + resume.city + " <br>" +
                             resume.worked_position + " · " + resume.worked_company + " | " + resume.education
                             + " · " + resume.school + "" +
                             "          </div>" +
@@ -780,12 +782,12 @@
                         $('#position_ul').html($('#position_ul').html() +
                             "<li id=\"" + position.position_id + "\">\n" +
                             "  <h3>\n" +
-                            "  <a target=\"_blank\" title=\"" + position.name + "\" href=\"http://www.lagou.com/jobs/" + position.position_id + ".html\">" + position.position_name + "</a>\n" +
+                            "  <a target=\"_blank\" title=\"" + position.name + "\" href=\"/position/" + position.position_id + "\">" + position.position_name + "</a>\n" +
                             "  <span>[" + position.city + "]</span>\n" +
                             "  </h3>\n" +
-                            "  <span class=\"receivedResumeNo\"><a\n" +
-                            "  href=\"unHandleResumes.html?positionId=" + position.position_id + "\">应聘简历（1）</a></span>\n" +
-                            "  <div>" + position.position_type + " / " + position.min_salary + "-" + position.max_salary + " / 1-3年 / 硕士及以上</div>\n" +
+                            {#"  <span class=\"receivedResumeNo\"><a\n" +#}
+                            {#"  href=\"unHandleResumes.html?positionId=" + position.position_id + "\">应聘简历（1）</a></span>\n" +#}
+                            "  <div>" + position.position_type + " / " + position.min_salary + "k-" + position.max_salary + "k / 1-3年 / 硕士及以上</div>\n" +
                             "  <div class=\"c9\">下线时间：" + position.post_date + "</div>\n" +
                             "  <div class=\"links\">\n" +
                             "    <a class=\"job_edit\" href=\"javascript:confirmOrder('edit'," + position.position_id + ")\">编辑</a>\n" +
@@ -825,6 +827,7 @@
             }
         )
     }
+
 </script>
 </body>
 </html>
