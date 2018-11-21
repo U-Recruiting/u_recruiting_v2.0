@@ -1,0 +1,14 @@
+### Pycharm ###
+.idea
+*.iws
+*.iml
+*.ipr
+*.py[cod]
+<<<<<<< HEAD
+*.pyc
+__pycache__
+migrations
+=======
+
+org_logo
+>>>>>>> f444598c2a6d21a15d9eaa2b54f8c560093a69da

@@ -1,0 +1,7 @@
+/*!static-page-available/modules/common/main.less*/
+body{line-height:22px}h2,h3,h4,p,p+p{margin:0}.container{width:1024px;margin:35px auto 0;padding-bottom:100px}
+/*!static-page-available/modules/common/css/content.less*/
+.content{position:relative;width:680px;margin:0 auto;padding:0 60px;background-color:#fafafa}.content h2{float:left;color:#fff;font-size:24px;font-weight:400;height:43px;background:#91cebe;margin:-8px 0 10px 40px;padding:0 20px;line-height:43px;position:absolute;z-index:2}.content h2 em{background:url(//www.lgstatic.com/www/static/static-page-available/modules/common/img/title_arrow_d475769.png) 0 0 no-repeat;width:6px;height:8px;position:absolute;left:-6px;top:0}.content dd{color:#555;padding:50px 25px 20px;clear:both}
+/*!static-page-available/modules/ua-main/main.less*/
+.ua dd{padding:80px 25px;line-height:28px;text-align:justify}.ua dd h3{font-size:14px}.ua dd a{color:#00b38a}.ua dd p,.ua dd h4{font-size:14px;text-indent:2em}.ua dd ul{list-style:decimal;list-style-position:inside}.ua dd ul li{text-indent:2em}.ua dd ol{list-style:disc;list-style-position:inside}.ua dd ol li{text-indent:4em}.ua dd .note{margin-bottom:1em;text-align:center;text-indent:0}.ua dd .underline{text-decoration:underline}.ua dd .text-bold{font-weight:700}
+/*!static-page-available/page/ua/main.less*/

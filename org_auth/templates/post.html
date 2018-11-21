@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load staticfiles %}
+</head>
+<body>
+<h4>在此页面输入岗位详细信息</h4>
+<div>
+    <form action="{% url 'post_position' %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="name"/>
+        <input type="submit" value="tijiao"/>
+    </form>
+</div>
+</body>
+</html>

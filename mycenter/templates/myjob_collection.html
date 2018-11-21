@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+
+    {% load staticfiles %}
+
+    <script type="text/javascript" async="" src="{% static 'js/conversion.js' %}"></script>
+    <script src="{% static 'js/allmobilize.min.js' %}" charset="utf-8" id="allmobilize"></script>
+    <meta charset="UTF-8">
+    <title>我收藏的职位</title>
+    {#    <link rel="stylesheet" href="{% static 'css/agent.css' %}">#}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/global.common.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/company.css' %}">
+    <link rel="stylesheet" href="{% static 'css/resume.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/external.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/popup.css' %}">
+
+    {#    <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>#}
+    {#    <script type="text/javascript" src="{% static 'js/bootstrap-dropdown.js' %}"></script>#}
+    <script type="text/javascript" src="{% static 'js/jquery.1.10.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.lib.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/ajaxfileupload.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/additional-methods.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/excanvas.js' %}"></script>
+    <script type="text/javascript">
+        var youdao_conv_id = 271546;
+    </script>
+    <script type="text/javascript" src="{% static 'js/conv.js' %}"></script>
+    <script charset="UTF-8" src="{% static 'js/ajaxCross.json' %}"></script>
+    {#    <script type="text/javascript" src="{% static 'js/search.min.js' %}"></script>#}
+
+</head>
+<body>
+<div id="body">
+    <!-- 菜单栏-->
+    <div id="header">
+        <div class="index_wrapper">
+            <a href="index.html" class="logo">
+                <img src="{% static 'imgs/logo.png' %}" width="229" height="43" alt="淘职-让求职更简单"/>
+            </a>
+            <ul class="reset" id="navheader">
+                <li><a href="/">首页</a></li>
+                <li><a href="{% url 'company' %}">公司</a></li>
+                <li class="current"><a href="{% url 'myresume' %}" >我的简历</a></li>
+            </ul>
+            <!-- 用户已登录-->
+            {% if logined %}
+                <div class="navheader_dropdown">
+                    <botton class="navheader_bropbtn">欢迎回来，{{ user_real_name }}
+                        <!--<img src="{% static 'imgs/drop.png' %}"> --></botton>
+                    <div class="navheader_dropdown_content">
+                        <a href="{% url 'myresume' %}">我的简历</a>
+                        <a href="{% url 'mycollection' %}">我的收藏</a>
+                        <a href="{% url 'delivery_resumes' %}">我的投递</a>
+                        <a href="">账号设置</a>
+                        <a href="{% url 'logout' %}">退出</a>
+                    </div>
+                </div>
+            {% else %}
+                <ul class="loginTop">
+                    <li><a href="/user/login/">登录</a></li>
+                    <li>|</li>
+                    <li><a href="/user/register">注册</a></li>
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+    <div id="container_list">
+
+        <div class="clearfix">
+            <div class="content_list" style="margin-top: 50px">
+                <dl class="c_collections">
+                    <dt>
+                    <h1><em></em>我收藏的职位</h1>
+                    </dt>
+                    <dd>
+                        <form id="collectionsForm">
+                            <ul class="reset my_collections">
+                                {% for position in positions %}
+                                    <li data-id="133340">
+                                    <a title="{{ position.name }}" target="_blank" href="/position/{{ position.id }}">
+                                        <img alt="{{ position.org.name }}" src="/static/org_logo/{{ position.org.id }}.jpg">
+                                    </a>
+                                    <div class="co_item">
+                                        <h2 title="{{ position.name }}">
+                                            <a target="_blank" href="/position/{{ position.id }}">
+                                                <em>{{ position.name }}</em>
+                                                <span>（{{ position.start_salary }}-{{ position.end_salary }}）</span>
+                                            </a>
+                                        </h2>
+                                        <span class="co_time">发布时间：{{ position.create_datetime }}</span>
+                                        <div class="co_cate">{{ position.org.name }} / {{ position.city }} / {{ position.work_exp }} / {{ position.edu_exp }}</div>
+                                        {% for adv in position.adv %}
+                                            <span class="co_youhuo c7">{{ adv }}</span>
+                                        {% endfor %}
+
+                                        <a class="collection_link" target="_blank" href="/position/{{ position.id }}">投个简历</a>
+                                        <i></i>
+                                        <a class="collectionCancel collection_link collected" href="javascript:;">
+                                            取消收藏
+                                            <span>已取消收藏</span>
+                                        </a>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </form>
+                    </dd>
+                </dl>
+            </div>
+            <div class="content_r" style="margin-top: 50px">
+                <div class="mycenterR" id="myInfo">
+                    <h2>我的职位管理</h2>
+                    <a href="{% url 'mycollection' %}">我的收藏</a>
+                    <br>
+                    <a href="{% url 'delivery_resumes' %}">我的投递</a>
+                </div><!--end #myInfo-->
+                <div class="mycenterR" id="myRecommend">
+                    <h2>猜你喜欢 <i>匹配度</i></h2>
+                    <ul class="reset">
+                        <li>
+                            <a target="_blank" href="http://www.lagou.com/jobs/22194.html">
+                                <span class="f16" style="font-size: 16px">产品经理</span>
+                                <span class="c7" style="font-size: 14px">广州百田</span>
+                                <em>92%</em>
+                            </a>
+                        </li>
+                        <li>
+                            <a target="_blank" href="http://www.lagou.com/jobs/148004.html">
+                                <span class="f16" style="font-size: 16px">产品经理</span>
+                                <span class="c7" style="font-size: 14px">短讯神州</span>
+                                <em>92%</em>
+                            </a>
+                        </li>
+                        <li>
+                            <a target="_blank" href="http://www.lagou.com/jobs/46793.html">
+                                <span class="f16" style="font-size: 16px">产品经理</span>
+                                <span class="c7" style="font-size: 14px">爱拍</span>
+                                <em>89%</em>
+                            </a>
+                        </li>
+                    </ul>
+                    <a class="more" href="{% url 'myrecommand' %}">更多推荐职位&gt;&gt;</a>
+                </div><!--end #myRecommend-->
+            </div>
+        </div>
+        <script src="style/js/collections.min.js"></script>
+        <script>
+            $(function () {
+                $('.Pagination').pager({
+                    currPage: 1,
+                    pageNOName: "pageNo",
+                    form: "collectionsForm",
+                    pageCount: 1,
+                    pageSize: 5
+                });
+            });
+        </script>
+        <div class="clear"></div>
+        <input type="hidden" value="4c6ae41d8c254f91becdb5f9ef2d4394" id="resubmitToken">
+        <a rel="nofollow" title="回到顶部" id="backtop"></a>
+    </div><!-- end #container -->
+
+</div><!-- end #body -->
+    <div id="footer">
+        <div class="wrapper">
+            <a href="h/about.html" target="_blank" rel="nofollow">联系我们</a>
+            <a href="h/af/zhaopin.html" target="_blank">互联网公司导航</a>
+            <div class="copyright">&copy;2013-2014 Lagou <a target="_blank"
+                                                            href="http://www.miitbeian.gov.cn/state/outPortal/loginPortal.action">京ICP备14023790号-2</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    {% load staticfiles %}
+<script id="allmobilize" charset="utf-8" src="{% static 'js/allmobilize.min.js' %}"></script>
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="alternate" media="handheld"  />
+<!-- end 云适配 -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>找回密码-淘职网-最专业的互联网招聘平台</title>
+    <link rel="Shortcut Icon" href="//www.lgstatic.com/passport/static/common/static/favicon_faed927.ico" />
+<meta property="qc:admins" content="23635710066417756375" />
+<meta content="淘职网是3W旗下的互联网领域垂直招聘网站,互联网职业机会尽在淘职网" name="description">
+<meta content="淘职,淘职网,淘职招聘,淘职, 淘职网 ,互联网招聘,淘职互联网招聘, 移动互联网招聘, 垂直互联网招聘, 微信招聘, 微博招聘, 淘职官网, 淘职百科,跳槽, 高薪职位, 互联网圈子, IT招聘, 职场招聘, 猎头招聘,O2O招聘, LBS招聘, 社交招聘, 校园招聘, 校招,社会招聘,社招" name="keywords">
+
+<meta name="baidu-site-verification" content="QIQ6KC1oZ6" />
+
+<!-- <div class="web_root"  style="display:none">http://www.lagou.com</div> -->
+    <script>
+(function() {
+    var protocol = window.location.protocol;
+    var host = window.location.host;
+    var baseUrl = protocol + '//' + host;
+
+    window.GLOBAL_DOMAIN = window.GLOBAL_DOMAIN || {
+        ctx: protocol + '//www.lagou.com',
+        rctx: protocol + '//hr.lagou.com',
+        crctx: protocol + '//hr.lagou.com/company',
+        pctx: protocol + '//passport.lagou.com',
+        actx: protocol + '//account.lagou.com',
+        paictx: protocol + '//pai.lagou.com',
+        sctx: protocol + '//suggest.lagou.com',
+        zctx: protocol + '//yanzhi.lagou.com',
+        proctx: 'https://pro.lagou.com',
+        lgsctx: protocol + '//www.lgstatic.com',
+        FE_frontLogin: baseUrl + '//www.lagou.com/frontLogin.do',
+        FE_frontLogout: baseUrl + '//www.lagou.com/frontLogout.do',
+        FE_frontRegister: baseUrl + '//www.lagou.com/frontRegister.do'
+    };
+
+    window.GLOBAL_CDN_DOMAIN = 'www.lgstatic.com';
+})();
+</script>
+    <script>
+    window.X_Anti_Forge_Token = 'bd3173fb-5ea8-4963-acdf-8600ef95877f';
+    window.X_Anti_Forge_Code = '61406041';
+</script>
+
+<!-- H5  -->
+<!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+    <link rel="stylesheet" type="text/css" href="//www.lgstatic.com/passport/static/pkg/pc/page/findpassword/step1.html_aio_d5cb12d.css" />
+
+
+<script type="text/javascript">
+var ctx = "http://www.lagou.com";
+console.log(1);
+</script>
+<link rel="Shortcut Icon" href="http://www.lagou.com/images/favicon.ico">
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
+
+<script src="{% static 'js/jquery.1.10.1.min.js' %}" type="text/javascript"></script>
+
+<script type="text/javascript" src="{% static 'js/jquery.lib.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/core.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/analytics.js' %}"></script>
+
+<script type="text/javascript">
+var youdao_conv_id = 271546;
+</script>
+<script type="text/javascript" src="{% static 'js/conv.js' %}"></script>
+</head>
+
+<body id="login_bg">
+	<div class="login_wrapper">
+		<div class="login_header">
+        	<a href="/"><img src="{% static 'imgs/logo.png' %}" width="285" height="62" alt="淘职招聘" /></a>
+            <div id="cloud_s"><img src="{% static 'imgs/cloud_s.png' %}" width="81" height="52" alt="cloud" /></div>
+            <div id="cloud_m"><img src="{% static 'imgs/cloud_m.png' %}" width="136" height="95" alt="cloud" /></div>
+        </div>
+
+    	<input type="hidden" id="resubmitToken" value="" />
+     	<div class="find_psw">
+        	<img src="{% static 'imgs/psw_step2.png' %}" width="369" height="56" alt="找回密码第二步" />
+            <form id="pswForm" action="{% url 'updatepwd' %}" method="post">
+                <form id="pswForm"  action="{% url 'email_verify' %}" method="post">
+           		                <input type="text" name="email" id="email" tabindex="1" value="" placeholder="请输入邮箱收到的验证码" />
+                                <input type="submit" id="submitLogin"  value="找回密码" />
+                </form>
+            </form>
+        </div>
+{#        <section class="content_box" id="findPwd2" style="margin-top: 50px;height: 200px;">#}
+{#            <img src="{% static 'imgs/psw_step2.png' %}" width="369" height="56" alt="找回密码第二步" style="position: absolute;left: 35px;top: 20px;" />#}
+{#            <h5 class="change_way" style="position: absolute;top: 290px;left: 175px"><a rel="nofollow" href="/user/login/">返回登录</a><span class="separate"></span></h5>#}
+{#            <!-- 通过邮箱来找回密码 -->#}
+{#    <div class="findPwd" style="background-color: red;position: absolute;width:400px;left: 20px;top: 100px">#}
+{##}
+{#        <form action="" method="">#}
+{##}
+{#            <ul class="form_head clearfix">#}
+{#                <li class="active fl">#}
+{#                    <span class="icon_step step1"></span>#}
+{#                    输入邮箱地址#}
+{#                </li>#}
+{#                <li class="fl line">#}
+{#                    <span class="icon_step step2"></span>#}
+{#                    验证邮箱#}
+{#                </li>#}
+{#                <li class="fr">#}
+{#                    <span class="icon_step step3"></span>#}
+{#                    重置密码#}
+{#                </li>#}
+{#            </ul>#}
+{#            <div class="form_body"  data-view="emailFindStep1">#}
+{#                <div class="input_item clearfix" data-propertyname="email" data-controltype="Email">#}
+{#                    <input type="text" class="input input_white" name="" placeholder="请输入注册时使用的邮箱地址" data-required="required" autocomplete="off" >#}
+{#                </div>#}
+{#                <div class="input_item clearfix"  data-propertyname="request_form_verifyCode" data-controltype="VerifyCode">#}
+{#                    <div class="input_group clearfix">#}
+{#                        <input type="text" class="input input_white" name="" placeholder="请证明你不是机器人" data-required="required" autocomplete="off" >#}
+{#                        <img src="" alt="点击重试" class="yzm" width="98" height="40" />#}
+{#                        <a rel="nofollow" href="javascript:;" class="reflash"></a>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="input_item clearfix" data-propertyname="submit" data-controltype="Botton">#}
+{#                    <input type="button" class="btn btn_green btn_active btn_block" value="找回密码" >#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="form_body" style="position: absolute;top: 20px">#}
+{#                <div class="input_item clearfix">#}
+{#                    <h3 class="reset_mail">密码重置邮件已发送至你的邮箱：<span class="des_mail">Alice@taozhi.com</span></h3>#}
+{#                    <p class="reset_tips">请在24小时内登录你的邮箱接收邮件,链接激活后可重置密码。</p>#}
+{#                </div>#}
+{#                <div class="input_item clearfix" style="display:block;" id="gotoVerify">#}
+{#                    <input type="button" class="btn btn_green btn_active btn_block" value="登录邮箱查看" style="text-align: center;height: auto;background-color: #D69700" id="step2" >#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="form_body" style="display:none">#}
+{#                <div class="input_item clearfix">#}
+{#                    <input type="text" class="input input_white" name="" placeholder="请输入新密码" data-required="required" autocomplete="off" >#}
+{#                </div>#}
+{#                <div class="input_item clearfix">#}
+{#                    <input type="text" class="input input_white" name="" placeholder="请再次输入新密码" data-required="required" autocomplete="off" >#}
+{#                </div>#}
+{#                <div class="input_item clearfix">#}
+{#                    <input type="button" class="btn btn_green btn_active btn_block" value="确定" id="step3" onclick="findByMail('step3')">#}
+{#                </div>#}
+{#            </div>#}
+{#        </form>#}
+{#    </div>#}
+{#</section>#}
+    </div>
+
+<input type="hidden" id="verifyStyle" style="display: none" value="nolagou"><!-- jquery lib --><!--拉勾UI框架 -->
+<!-- analytics js file -->
+<script type="text/javascript" src="//www.lgstatic.com/passport/static/pkg/vendor_c7a7c93.js"></script>
+<script type="text/javascript" src="//www.lgstatic.com/passport/static/pkg/pc/page/findpassword/step1.html_aio_2d366a5.js"></script>
+<script type="text/javascript">
+    //login page
+    require(['pc/page/findpassword/main']);
+</script>
+<script type="text/javascript" src="//www.lgstatic.com/passport/static/pkg/lg-analytics_44f2da6.js"></script>
+<script type="text/javascript" src="https://passport.lagou.com/upload/oss.js"></script>
+</body>
+</html>

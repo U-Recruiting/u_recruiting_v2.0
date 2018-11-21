@@ -1,0 +1,559 @@
+<!DOCTYPE HTML>
+<html xmlns:wb="http://open.weibo.com/wb">
+<head>
+
+    {% load staticfiles %}
+
+    <script type="text/javascript" async="" src="{% static 'js/conversion.js' %}"></script>
+    <script src="{% static 'js/allmobilize.min.js' %}" charset="utf-8" id="allmobilize"></script>
+    <style type="text/css"></style>
+    <meta content="no-siteapp" http-equiv="Cache-Control">
+    <link media="handheld" rel="alternate">
+    <!-- end 云适配 -->
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <title>公司基本信息</title>
+    <meta content="23635710066417756375" property="qc:admins">
+    <meta name="description" content="3W旗下的互联网领域垂直招聘网站,互联网职业机会尽在拉勾网">
+    <meta name="keywords"
+          content="互联网招聘,拉勾互联网招聘, 移动互联网招聘, 垂直互联网招聘, 微信招聘, 微博招聘, 拉勾官网, 拉勾百科,跳槽, 高薪职位, 互联网圈子, IT招聘, 职场招聘, 猎头招聘,O2O招聘, LBS招聘, 社交招聘, 校园招聘, 校招,社会招聘,社招">
+    <meta content="QIQ6KC1oZ6" name="baidu-site-verification">
+
+    <!-- <div class="web_root"  style="display:none">http://www.lagou.com</div> -->
+    <script type="text/javascript">
+        var ctx = "http://www.lagou.com";
+        console.log(1);
+    </script>
+    <link href="http://www.lagou.com/images/favicon.ico" rel="Shortcut Icon">
+    <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet">
+    <link href="{% static 'css/external.min.css' %}" type="text/css" rel="stylesheet">
+    <link href="{% static 'css/popup.css' %}" type="text/css" rel="stylesheet">
+    <script type="text/javascript" src="{% static 'js/jquery.1.10.1.min.js' %}"></script>
+    <script src="{% static 'js/jquery.lib.min.js' %}" type="text/javascript"></script>
+    <script type="text/javascript" src="{% static 'js/ajaxfileupload.js' %}"></script>
+    <script src="{% static 'js/additional-methods.js' %}" type="text/javascript"></script>
+    <!--[if lte IE 8]>
+    <script type="text/javascript" src="style/js/excanvas.js"></script>
+<![endif]-->
+    <script type="text/javascript">
+        var youdao_conv_id = 271546;
+    </script>
+    <script src="{% static 'js/conv.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/ajaxCross.json' %}" charset="UTF-8"></script>
+
+
+    <script type="text/javascript">
+        function myCheck1() {
+            form1.submit();
+        }
+        function myCheck2() {
+            form2.submit();
+        }
+        function myCheck3() {
+            form3.submit();
+        }
+    </script>
+
+    <style>
+        {#        #container {#}
+        {#            /*保证footer是相对于container位置绝对定位*/#}
+        {#            position: relative;#}
+        {#            width: 100%;#}
+        {#            min-height: 100%;#}
+        {#            richness: /*设置padding-bottom值大于等于footer的height值，以保证main的内容能够全部显示出来而不被footer遮盖；*/ padding-bottom: 100px;#}
+        {#            box-sizing: border-box;#}
+        {#        }#}
+
+        #footer {
+            width: 100%;
+            height: 40px; /* footer的高度一定要是固定值*/
+            position: fixed;
+            bottom: 0px;
+            left: 0px;
+            background: white;
+            z-index: 200;
+        }
+
+        #result {
+            padding-top: 0;
+            width: 200px;
+            height: 160px;
+            background-image: url("/static/org_logo/{{ org_ifo.id }}.jpg");
+
+        }
+
+        #result img {
+            width: 200px;
+            height: 165px;
+        }
+
+        input {
+            width: 70px;
+            margin-top: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+<div id="body">
+    <div id="header">
+        <div class="wrapper">
+            <a class="logo" href="index.html">
+                <img width="229" height="43" alt="拉勾招聘-专注互联网招聘" src="{% static 'imgs/logo.png' %}">
+            </a>
+            <ul id="navheader" class="reset">
+                <li><a href="/">首页</a></li>
+                <li class="current"><a href="companylist.html">我的公司</a></li>
+                {#                <li><a target="_blank" href="">论坛</a></li>#}
+                <li>
+                    <a rel="nofollow" href="/org/my_org/resumes">简历管理</a>
+                </li>
+                <li><a rel="nofollow" href="/org/my_org/create">发布职位</a></li>
+            </ul>
+            <dl class="collapsible_menu">
+                <dt>
+                    <span>jason&nbsp;</span>
+                    <span class="red dn" id="noticeDot-1"></span>
+                    <i></i>
+                </dt>
+                <dd><a href="positions.html">我发布的职位</a></dd>
+                <dd><a href="">我收到的简历</a></dd>
+                <dd class="btm"><a href="myhome.html">我的公司主页</a></dd>
+                {#                <dd><a href="jianli.html">我要找工作</a></dd>#}
+                <dd><a href="accountBind.html">帐号设置</a></dd>
+                <dd class="logout"><a rel="nofollow" href="login.html">退出</a></dd>
+            </dl>
+        </div>
+    </div><!-- end #header -->
+    <div id="container">
+        <form method="post" id="update_data">
+            <!-- <script src="style/js/swfobject_modified.js" type="text/javascript"></script> -->
+            <div class="clearfix">
+
+                <div class="content_l">
+                    <div class="c_detail">
+                        <div style="background-color:#fff;" class="c_logo">
+                            <div id="result"></div>
+                            <input id="pic" type="file" name='pic' accept="image/*" onchange="selectFile()"/>
+                            <!-- <button onclick = "handIn()">提交</button> -->
+                            <script type="text/javascript">
+                                //var files = document.getElementById('pic').files;
+                                var form = new FormData();//通过HTML表单创建FormData对象
+                                {#                                    var url = '127.0.0.1:8080/'#}
+                                function selectFile() {
+                                    var files = document.getElementById('pic').files;
+                                    console.log(files[0]);
+                                    if (files.length == 0) {
+                                        return;
+                                    }
+                                    var file = files[0];
+                                    //把上传的图片显示出来
+                                    var reader = new FileReader();
+                                    // 将文件以Data URL形式进行读入页面
+                                    console.log(reader);
+                                    reader.readAsBinaryString(file);
+                                    reader.onload = function (f) {
+                                        var result = document.getElementById("result");
+                                        var src = "data:" + file.type + ";base64," + window.btoa(this.result);
+                                        result.innerHTML = '<img src ="' + src + '"/>';
+                                    }
+                                    console.log('file', file);
+                                    ///////////////////
+                                    form.append('file', file);
+                                    console.log(form.get('file'));
+                                }
+                            </script>
+                            {#                        <span style="color: black;margin-left: 50px">更改公司LOGO</span>#}
+                            {#                        <a title="上传公司LOGO" id="logoShow" class="inline cboxElement" href="#logoUploader">#}
+                            {#                            <img width="190" height="190" alt="公司logo" src="{% static 'imgs/logo_default.png' %}">#}
+                            {#                    <span>更换公司图片<br>190px*190px 小于5M</span>#}
+                            {#                        </a>#}
+                        </div>
+
+                        <div class="c_box companyName">
+                            <h2 title="">
+                                {{ org_ifo.name }}
+
+                                {#                                平潭协创进出口贸易有限公司#}
+                            </h2>
+                            <img width="100px" height="30px" src="{% static 'imgs/Authentication.png' %}">
+                            {#                        <em class="valid"></em>#}
+                            <span class="va dn">淘职认证企业</span>
+                            {#                        <a target="_blank" class="applyC" href="http://www.lagou.com/c/auth.html">申请认证</a>#}
+                            <div class="clear"></div>
+
+                            {#                        <h1 title="福建平潭协创进出口贸易有限公司" class="fullname">福建平潭协创进出口贸易有限公司</h1>#}
+
+                            {#                            <form class="clear editDetail dn" id="editDetailForm">#}
+                            {#                                <input type="text" placeholder="请输入公司名称" maxlength="15" value=""#}
+                            {#                                       name="companyShortName" id="companyShortName">#}
+                            {#                            <input type="text" placeholder="一句话描述公司优势，核心价值，限50字" maxlength="50" value="测试的发打发打发大范德萨发"#}
+                            {#                                   name="companyFeatures" id="companyFeatures">#}
+                            {#                                <input type="hidden" value="25927" id="companyId" name="companyId">#}
+                            {#                                <input type="submit" value="保存" id="saveDetail" class="btn_small" style="width: 100px">#}
+                            {#                                <a id="cancelDetail" class="btn_cancel_s">取消</a>#}
+                            {#                            </form>#}
+
+                            {#                        <div class="clear oneword"><img width="17" height="15" src="{% static 'imgs/quote_l.png' %}">&nbsp;#}
+                            {#                            <span>测试的发打发打发大范德萨发</span> &nbsp;<img width="17" height="15" src="{% static 'imgs/quote_r.png'%}">#}
+                            {#                        </div>#}
+                            <ul style="overflow:auto" id="hasLabels" class="reset clearfix">
+                                {% for tag in org_ifo.tags %}
+                                    <li><span>{{ tag }}</span></li>
+                                {% endfor %}
+                                <li class="link">编辑</li>
+                            </ul>
+                            {#                            <div class="dn" id="addLabels">#}
+                            {#                            <form name="form1" method="post" action="">#}
+                            {#                            <a id="changeLabels" class="change" href="javascript:void(0)">换一换</a>#}
+                            {#                                <input type="hidden" value="1" id="labelPageNo">#}
+                            {#                                <input type="submit" value="贴上" class="fr" id="add_label">#}
+                            {#                                <input type="text" placeholder="添加自定义标签" name="label" id="label" class="label_form fr">#}
+                            {#                                <div class="clear"></div>#}
+                            {#                                <ul class="reset clearfix"></ul>#}
+                            {#                                <a id="saveLabels" class="btn_small" href="javascript:void(0)">保存</a>#}
+                            {#                                <input type="submit" value="保存" id="step1" class="btn_small"#}
+                            {#                                       style="width: 100px;margin-top:20px" onclick="myCheck1();">#}
+                            {##}
+                            {#                                <a id="cancelLabels" class="btn_cancel_s" href="javascript:void(0)">取消</a>#}
+                            {#                            </form>#}
+                            {#                            </div>#}
+
+                            <div class="dn" id="addLabels">
+                                {#                                <a id="changeLabels" class="change" href="javascript:void(0)">换一换</a>#}
+                                <input type="hidden" value="1" id="labelPageNo">
+                                {#                                <input type="submit" value="贴上" class="fr" id="add_label">#}
+                                <input type="text" placeholder="添加自定义标签"  name="label" id="label" class="label_form fr">
+                                <div class="clear"></div>
+                                <input type="submit" value="保存" id="step" class="btn_small" style="width: 100px;margin-top:20px">
+                                <a id="cancelLabels" class="btn_cancel_s" href="javascript:void(0)">取消</a>
+                                {#                                <div class="clear"></div>#}
+                                {#                                <ul class="reset clearfix"></ul>#}
+                                {#                                <a id="saveLabels" class="btn_small" href="javascript:void(0)">保存</a>#}
+                                {#                                <a id="cancelLabels" class="btn_cancel_s" href="javascript:void(0)">取消</a>#}
+                            </div>
+                        </div>
+                        {#                        <a title="编辑基本信息" class="c_edit" id="editCompanyDetail" href="javascript:void(0);"></a>#}
+                        <div class="clear"></div>
+                    </div>
+
+                    <div class="c_breakline"></div>
+
+                    <div id="Profile">
+                        <div class="profile_wrap">
+                            <!--无介绍 -->
+                            <dl class="c_section dn">
+                                <dt>
+                                <h2><em></em>公司介绍</h2>
+                                </dt>
+                                <dd>
+                                    <div class="addnew">
+                                        详细公司的发展历程、让求职者更加了解你!<br>
+                                        <a id="addIntro" href="javascript:void(0)">+添加公司介绍</a>
+                                    </div>
+                                </dd>
+                            </dl>
+                            <!--编辑介绍-->
+                            <dl class="c_section newIntro dn">
+                                <dt>
+                                <h2><em></em>公司介绍</h2>
+                                </dt>
+                                <dd>
+                                    {#                                <form name="form2" id="companyDesForm" method="post" action="">#}
+                                    <textarea placeholder="请分段详细描述公司简介、企业文化等" name="company_desc" id="companyProfile"
+                                              class=saveHistory>{{ org_ifo.desc }}
+                                    </textarea>
+                                    <div class="word_count fr">你还可以输入 <span>1000</span> 字</div>
+                                    <div class="clear"></div>
+                                    <input type="submit" value="保存" id="submitProfile" class="btn_small"
+                                           style="width: 100px" onclick="myCheck2();">
+                                    <a id="delProfile" class="btn_cancel_s" href="javascript:void(0)">取消</a>
+                                    {#                                </form>#}
+                                </dd>
+                            </dl>
+
+                            <!--有介绍-->
+                            <dl class="c_section">
+                                <dt>
+                                <h2><em></em>公司介绍</h2>
+                                </dt>
+                                <dd>
+                                    <div class="c_intro">{{ org_ifo.desc }}</div>
+                                    <a title="编辑公司介绍" id="editIntro" class="c_edit" href="javascript:void(0)"></a>
+                                </dd>
+                            </dl>
+                        </div>
+
+                    </div><!-- end #Profile -->
+
+                </div>    <!-- end .content_l -->
+                {#                <div class="c_breakline"></div>#}
+
+                <div class="content_r" style="width:1025px;margin-left: 0">
+                    <div id="Tags">
+                        <div id="c_tags_show" class="c_tags solveWrap">
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td width="45">地点</td>
+                                    <td>{{ org_ifo.city }}</td>
+                                </tr>
+                                <tr>
+                                    <td>领域</td><!-- 支持多选 -->
+                                    <td title="移动互联网">{{ org_ifo.type }}</td>
+                                </tr>
+                                <tr>
+                                    <td>规模</td>
+                                    <td>{{ org_ifo.scale }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <a id="editTags" class="c_edit" href="javascript:void(0)"></a>
+                            {#                        <a id="cancelFeatures" class="btn_cancel_s" href="javascript:void(0)">取消</a>#}
+
+                        </div>
+                        <div id="c_tags_edit" class="c_tags editTags dn" style="overflow: auto">
+                            {#                        <form name="form3" id="tagForms" method="post" action="">#}
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td>地点</td>
+                                    <td>
+                                        <input type="text" placeholder="请输入地点" value="{{ org_ifo.city }}"
+                                               name="company_city" id="city" class=saveHistory>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>领域</td><!-- 支持多选 -->
+                                    <td>
+                                        <input type="hidden" value="{{ org_ifo.type }}" name="select_industry_hidden"
+                                               id="select_industry_hidden" class=saveHistory>
+                                        <input type="button" value="{{ org_ifo.type }}" name="" id="select_industry"
+                                               class="select_tags">
+                                        <div class="selectBox dn" id="box_industry" style="display: none;">
+                                            <ul class="reset">
+                                                <li>IT互联网</li>
+                                                <li>市场商务</li>
+                                                <li>电子电气</li>
+                                                <li>人事行政</li>
+                                                <li>外语外贸</li>
+                                                <li>财经法务</li>
+                                                <li>媒体设计</li>
+                                                <li>教育咨询</li>
+                                                <li>其他类型</li>
+                                            </ul>
+                                        </div>
+                                        {#                                        </div>#}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>规模</td>
+                                    <td>
+                                        <input type="hidden" value="{{ org_ifo.scale }}" id="companySize"
+                                               name="companySize" class=saveHistory>
+                                        <input type="button" value="{{ org_ifo.scale }}" id="select_sca"
+                                               class="select_tags">
+                                        <div class="selectBox dn" id="box_sca" style="display: none;">
+                                            <ul class="reset">
+                                                <li>少于15人</li>
+                                                <li>15-50人</li>
+                                                <li>50-150人</li>
+                                                <li>150-500人</li>
+                                                <li>500-2000人</li>
+                                                <li>2000人以上</li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <input type="hidden" id="comCity" value="{{ org_ifo.city }}}">
+                            <input type="hidden" id="comInd" value="{{ org_ifo.type }}}">
+                            <input type="hidden" id="comSize" value="{{ org_ifo.scale }}}">
+                            {#                            <input type="hidden" id="comUrl" value="http://www.zmtpost.com">#}
+                            <input type="submit" value="保存" id="submitFeatures" class="btn_small"
+                                   style="width: 100px" onclick="myCheck3();">
+                            <a id="cancelFeatures" class="btn_cancel_s" href="javascript:void(0)">取消</a>
+                            <div class="clear"></div>
+                            {#                        </form>#}
+                        </div>
+                    </div><!-- end #Tags -->
+
+                </div>
+
+            </div>
+        </form>
+
+        <script src="{% static 'js/company.min.js' %}" type="text/javascript"></script>
+        {#                <script src="{% static 'js/step1.min.js' %}" type="text/javascript"></script>#}
+
+        <div class="clear"></div>
+        <input type="hidden" value="d1035b6caa514d869727cff29a1c2e0c" id="resubmitToken">
+        <a rel="nofollow" title="回到顶部" id="backtop" style="display: inline;"></a>
+    </div><!-- end #container -->
+</div><!-- end #body -->
+<div id="footer">
+    <div class="wrapper">
+        <a rel="nofollow" target="_blank" href="about.html">联系我们</a>
+        <a target="_blank" href="http://www.lagou.com/af/zhaopin.html">互联网公司导航</a>
+        {#        <a rel="nofollow" target="_blank" href="http://e.weibo.com/lagou720">拉勾微博</a>#}
+        {#        <a rel="nofollow" href="javascript:void(0)" class="footer_qr">拉勾微信<i></i></a>#}
+        {#        <div class="copyright">&copy;2013-2014 Lagou <a#}
+        {#                href="http://www.miitbeian.gov.cn/state/outPortal/loginPortal.action"#}
+        {#                target="_blank">京ICP备14023790号-2</a></div>#}
+    </div>
+</div>
+
+<script src="{% static 'js/core.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/popup.min.js' %}" type="text/javascript"></script>
+
+<!--  -->
+
+
+<div id="cboxOverlay" style="display: none;"></div>
+<div id="colorbox" class="" role="dialog" tabindex="-1" style="display: none;">
+    <div id="cboxWrapper">
+        <div>
+            <div id="cboxTopLeft" style="float: left;"></div>
+            <div id="cboxTopCenter" style="float: left;"></div>
+            <div id="cboxTopRight" style="float: left;"></div>
+        </div>
+        <div style="clear: left;">
+            <div id="cboxMiddleLeft" style="float: left;"></div>
+            <div id="cboxContent" style="float: left;">
+                <div id="cboxTitle" style="float: left;"></div>
+                <div id="cboxCurrent" style="float: left;"></div>
+                <button type="button" id="cboxPrevious"></button>
+                <button type="button" id="cboxNext"></button>
+                <button id="cboxSlideshow"></button>
+                <div id="cboxLoadingOverlay" style="float: left;"></div>
+                <div id="cboxLoadingGraphic" style="float: left;"></div>
+            </div>
+            <div id="cboxMiddleRight" style="float: left;"></div>
+        </div>
+        <div style="clear: left;">
+            <div id="cboxBottomLeft" style="float: left;"></div>
+            <div id="cboxBottomCenter" style="float: left;"></div>
+            <div id="cboxBottomRight" style="float: left;"></div>
+        </div>
+    </div>
+    <div style="position: absolute; width: 9999px; visibility: hidden; display: none;"></div>
+</div>
+
+
+{#<script>#}
+{##}
+{##}
+{#    $(function () {#}
+{##}
+{#        $('#step1').click(function (e) {#}
+{#            e.preventDefault();#}
+{#            var labels_list = [];#}
+{#            var labels = $('#hasLabels li span');#}
+{#            for (var i = 0; i < labels.length; i++) {#}
+{#                labels_list.push(labels[i].innerHTML);#}
+{#            }#}
+{#            var labels_str = labels_list.join(',');#}
+{##}
+{#            console.log(labels_str);#}
+{#            var form = new FormData(document.getElementById("update_data"));#}
+{#            form.append('csrfmiddlewaretoken', '{{ csrf_token }}');#}
+{#            form.append('labels', labels_str);#}
+{#            $.ajax({#}
+{#                url: "{% url 'myhome' %}",#}
+{#                type: 'post',#}
+{#                data: form,#}
+{#                processData: false,#}
+{#                contentType: false,#}
+{#                success: function (result) {#}
+{#                    window.location.href = result.url;#}
+{#                }#}
+{#            });#}
+{#        });#}
+{#        $(window).unbind('beforeunload');#}
+{#        window.onbeforeunload = null;#}
+{##}
+{##}
+{#    })#}
+{#</script>#}
+
+
+<script>
+    $(function () {
+        var b, c, a = !1;
+        b = {expires: 1}, null == $.cookie("viewTimes") ? ($("#stepTip img").attr("src", ctx + "/images/tiponce.jpg").parent("#stepTip").fadeIn(200), $.cookie("viewTimes", "1", b)) : (c = parseInt($.cookie("viewTimes")) + 1, $("#stepTip img").attr("src", ctx + "/images/tipagain.jpg").parent("#stepTip").fadeIn(200), $.cookie("viewTimes", c, b)), $(document).click(function () {
+            var a = [];
+            $("#box_industry li.current").length > 2 ? alert("行业领域最多可选2个") : ($("#box_industry li.current").each(function () {
+                a.push($(this).text())
+            }),
+                "" == a.join() ? $("#select_industry") : $("#select_industry"), $("#select_industry_hidden"), $("#box_industry").hide()), $("#box_industry").hide(), $("#box_scale").hide(), $("#stagesList .box_invest").hide()
+        }), $("#select_industry").bind("click", function (a) {
+            a.stopPropagation(), $("#box_industry").show(), $("#box_scale").hide(), $("#stagesList .box_invest").hide()
+        }), $("#box_industry").on("click", "ul li", function (a) {
+            a.stopPropagation();
+            var b = [];
+            $(this).hasClass("current") ? ($(this).removeClass("current"), $("#box_industry li.current").each(function () {
+                b.push($(this).text())
+            }), $("#select_industry").val(b.join()), $("#select_industry_hidden").val(b.join())) : 0 == $(this).siblings("li.current").length ? ($(this).addClass("current"), b.push($(this).text()), $("#select_industry").val(b.join()), $("#select_industry_hidden").val(b.join())) : 1 == $(this).siblings("li.current").length ? ($(this).addClass("current"), $("#box_industry li.current").each(function () {
+                b.push($(this).text())
+            }), $("#select_industry").val(b.join()), $("#select_industry_hidden").val(b.join()), $("#box_industry").hide()) : $(this).siblings("li.current").length >= 2 && alert("行业领域最多可选2个"), $("#stepForm").validate().element("#select_industry_hidden")
+        }), $("#select_scale").bind("click", function (a) {
+            a.stopPropagation(), $("#box_scale").show(), $("#box_industry").hide(), $("#stagesList .box_invest").hide()
+        }), $("#box_scale").on("click", "ul li", function (a) {
+            a.stopPropagation();
+            var b = $(this).text();
+            $("#select_scale,#select_scale_hidden").val(b), $("#box_scale").hide(), $("#stepForm").validate().element("#select_scale_hidden")
+        }), $("#box_industry,#box_scale").bind("click", function (a) {
+            a.stopPropagation()
+        }), $(".s_radio li").click(function () {
+            var b = $(this).text();
+            $("#s_radio_hidden").val(b), $(this).addClass("current").append("<em></em>").siblings().removeClass("current").find("em").remove(), $("#stepForm").validate().element("#s_radio_hidden")
+        }), $("#stagesList").on("click", ".select_invest", function (a) {
+            a.stopPropagation(), $("#box_scale").hide(), $("#box_industry").hide(), $(this).parents("li").siblings().children(".box_invest").hide(), $(this).siblings(".box_invest").show()
+        }), $("#stagesList").on("click", ".box_invest li", function (a) {
+            var b, c;
+            a.stopPropagation(), b = $(this).html(), c = $(this).parents("li"), $(".select_invest,.select_invest_hidden", c).val(b), $(this).parents(".box_invest").hide(), c.index() == $("#stagesList > li").length - 1 && $("#stagesList > li").length < 10 && c.children(".select_invest").trigger("change")
+        }), $("#stagesList").on("change", ".select_invest", function () {
+            var a = $("#cloneInvest").html();
+            $("#stagesList").append("<li>" + a + "</li>")
+        }), $("#stepForm").validate({
+            onkeyup: !1,
+            focusCleanup: !0,
+            rules: {
+                select_industry_hidden: {required: !0},
+                select_scale_hidden: {required: !0},
+            },
+            messages: {
+                select_industry_hidden: {required: "请选择公司行业领域"},
+            },
+            errorPlacement: function (a, b) {
+                "hidden" == b.attr("type") ? a.insertAfter($(b).parent()) : a.insertAfter(b)
+            },
+            submitHandler: function (b) {
+                var c, d, e, f, g, h, i, j, k, l, m, n, o;
+                a = !0, c = $("#companyId").val(), d = $("#companyName").val(), e = $("#name").val(), f = $("#logoShow img").attr("src"), g = $("#website").val(), "http://" != g.substring(0, 7) && (g = "http://" + g), h = $("#city").val(), i = $("#select_industry_hidden").val(), j = $("#select_scale_hidden").val(), k = $("#s_radio_hidden").val(), l = "", l += "[", $("#stagesList > li").each(function (a) {
+                    m = $(this).children('input[name="select_invest_hidden"]').val(), n = $(this).children('input[name="stageorg"]').val() != $(this).children('input[name="stageorg"]').attr("placeholder") ? $(this).children('input[name="stageorg"]').val() : "", l += a == $("#stagesList > li").length - 1 ? '{"stage":"' + m + '","org":"' + n + '"}' : '{"stage":"' + m + '","org":"' + n + '"},'
+                }), l += "]", o = $("#temptation").val(), $(b).find(":submit").attr("disabled", !0), $.ajax({
+                    type: "POST",
+                    data: {
+                        industryField: i,
+                    },
+                    url: ctx + "/c/saveBaseInfo.json"
+                }).done(function (a) {
+                    a.success ? window.location.href = ctx + "/c/tag.html" : $("#beError").text(a.msg).show(), $(b).find(":submit").attr("disabled", !1)
+                })
+            }
+        });
+    });
+</script>
+
+<script>
+    $(function () {
+        $(window).unbind('beforeunload');
+        window.onbeforeunload = null;
+    });
+</script>
+
+
+</body>
+</html>

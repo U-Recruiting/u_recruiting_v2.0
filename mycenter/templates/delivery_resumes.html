@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+
+    {% load staticfiles %}
+
+    <script type="text/javascript" async="" src="{% static 'js/conversion.js' %}"></script>
+    <script src="{% static 'js/allmobilize.min.js' %}" charset="utf-8" id="allmobilize"></script>
+    <meta charset="UTF-8">
+
+
+    {#    <link rel="stylesheet" href="{% static 'css/agent.css' %}">#}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/global.common.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/company.css' %}">
+    <link rel="stylesheet" href="{% static 'css/resume.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/external.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/popup.css' %}">
+
+    {#    <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>#}
+    {#    <script type="text/javascript" src="{% static 'js/bootstrap-dropdown.js' %}"></script>#}
+    <script type="text/javascript" src="{% static 'js/jquery.1.10.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.lib.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/ajaxfileupload.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/additional-methods.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/excanvas.js' %}"></script>
+
+    <script type="text/javascript" src="{% static 'js/conv.js' %}"></script>
+    <script charset="UTF-8" src="{% static 'js/ajaxCross.json' %}"></script>
+    {#    <script type="text/javascript" src="{% static 'js/search.min.js' %}"></script>#}
+
+
+</head>
+<body>
+<div id="body">
+    <!-- 菜单栏-->
+    <div id="header">
+        <div class="index_wrapper">
+            <a href="index.html" class="logo">
+                <img src="{% static 'imgs/logo.png' %}" width="229" height="43" alt="淘职-让求职更简单"/>
+            </a>
+            <ul class="reset" id="navheader">
+                <li><a href="/">首页</a></li>
+                <li><a href="{% url 'company' %}">公司</a></li>
+                <li class="current"><a href="{% url 'myresume' %}">我的简历</a></li>
+            </ul>
+            <!-- 用户已登录-->
+            {% if logined %}
+                <div class="navheader_dropdown">
+                    <botton class="navheader_bropbtn">欢迎回来，{{ user_real_name }}
+                        <!--<img src="{% static 'imgs/drop.png' %}"> --></botton>
+                    <div class="navheader_dropdown_content">
+                        <a href="{% url 'myresume' %}">我的简历</a>
+                        <a href="{% url 'mycollection' %}">我的收藏</a>
+                        <a href="{% url 'delivery_resumes' %}">我的投递</a>
+                        <a href="">账号设置</a>
+                        <a href="{% url 'logout' %}">退出</a>
+                    </div>
+                </div>
+            {% else %}
+                <ul class="loginTop">
+                    <li><a href="/user/login/">登录</a></li>
+                    <li>|</li>
+                    <li><a href="/user/register">注册</a></li>
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+
+    {% block title %}<title>我投递的职位</title>{% endblock %}
+
+    <div id="container_list">
+
+        <div class="clearfix">
+            <div class="content_list" style="margin-top: 50px">
+                <dl class="c_delivery">
+                    <dt>
+                        <h1 id="titleDelivery" style="background-color: #F4A002"><em></em>已投递简历状态</h1>
+                        <a class="d_refresh" href="javascript:;">刷新</a>
+                    </dt>
+                    <dd>
+                        <div class="delivery_tabs">
+                            <ul class="reset">
+                                <li class="current" id="allDelivery">
+                                    <a href="javascript:">全部</a>
+                                </li>
+                                <li id="successDelivery">
+                                    <a href="javascript:">投递成功</a>
+                                </li>
+                                <li id="notifyDelivery">
+                                    <a href="javascript:">通知面试</a>
+                                </li>
+                                <li id="passDelivery">
+                                    <a href="javascript:">已录用</a>
+                                </li>
+                                <li id="refuseDelivery">
+                                    <a href="javascript:">不合适</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <form id="deliveryForm">
+                            <ul class="reset my_delivery" id="delivery_list" style="margin:30px 40px">
+
+                            </ul>
+                            <input type="hidden" value="-1" name="tag">
+                            <input type="hidden" value="" name="r">
+                        </form>
+                    </dd>
+                </dl>
+            </div>
+            <div class="content_r" style="margin-top: 50px">
+                <div class="mycenterR" id="myInfo">
+                    <h2>我的职位管理</h2>
+                    <a href="{% url 'mycollection' %}"><p>我收藏的职位</p></a>
+                    <a><p>我投递的职位</p></a>
+                </div><!--end #myInfo-->
+
+{#                <div class="mycenterR" id="myRecommend">#}
+{#                    <h2>猜你喜欢 <i>匹配度</i></h2>#}
+{#                    <ul class="reset">#}
+{#                        <li>#}
+{#                            <a target="_blank" href="http://www.lagou.com/jobs/22194.html">#}
+{#                                <span class="f16" style="font-size: 16px">产品经理</span>#}
+{#                                <span class="c7" style="font-size: 14px">广州百田</span>#}
+{#                                <em>92%</em>#}
+{#                            </a>#}
+{#                        </li>#}
+{#                        <li>#}
+{#                            <a target="_blank" href="http://www.lagou.com/jobs/148004.html">#}
+{#                                <span class="f16" style="font-size: 16px">产品经理</span>#}
+{#                                <span class="c7" style="font-size: 14px">短讯神州</span>#}
+{#                                <em>92%</em>#}
+{#                            </a>#}
+{#                        </li>#}
+{#                        <li>#}
+{#                            <a target="_blank" href="http://www.lagou.com/jobs/46793.html">#}
+{#                                <span class="f16" style="font-size: 16px">产品经理</span>#}
+{#                                <span class="c7" style="font-size: 14px">爱拍</span>#}
+{#                                <em>89%</em>#}
+{#                            </a>#}
+{#                        </li>#}
+{#                    </ul>#}
+{#                    <a class="more" href="{% url 'myrecommand' %}">更多推荐职位&gt;&gt;</a>#}
+{#                </div><!--end #myRecommend-->#}
+
+            </div>
+        </div>
+        <input type="hidden" id="userid" name="userid" value="314873">
+        <script src="{% static 'js/delivery.js' %}"></script>
+
+        <div class="clear"></div>
+        <input type="hidden" value="" id="resubmitToken">
+        <a rel="nofollow" title="回到顶部" id="backtop" style="display: none;"></a>
+    </div><!-- end #container -->
+</div><!-- end #body -->
+
+<div id="footer">
+    <div class="wrapper">
+        <a href="h/about.html" target="_blank" rel="nofollow">联系我们</a>
+        <a href="h/af/zhaopin.html" target="_blank">互联网公司导航</a>
+        <div class="copyright">&copy;2013-2014 Lagou <a target="_blank"
+                                                        href="http://www.miitbeian.gov.cn/state/outPortal/loginPortal.action">京ICP备14023790号-2</a>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="{% static 'js/core.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/popup.min.js' %}"></script>
+
+<script>
+    $(function () {
+        get_resume_list('all');
+        $('#allDelivery').click(function () {
+            remove_current();
+            $('#titleDelivery').html('<em></em>已投递简历状态');
+            $('#allDelivery').addClass('current');
+            get_resume_list('all')
+        });
+        $('#successDelivery').click(function () {
+            remove_current();
+            $('#titleDelivery').html('<em></em>投递成功简历');
+            $('#successDelivery').addClass('current');
+            get_resume_list('received')
+        });
+        $('#notifyDelivery').click(function () {
+            remove_current();
+            $('#titleDelivery').html('<em></em>通知面试简历');
+            $('#notifyDelivery').addClass('current');
+            get_resume_list('notified');
+
+        });
+        $('#passDelivery').click(function () {
+            remove_current();
+            $('#titleDelivery').html('<em></em>已录用简历');
+            $('#passDelivery').addClass('current');
+            get_resume_list('passed');
+        });
+        $('#refuseDelivery').click(function () {
+            remove_current();
+            $('#titleDelivery').html('<em></em>不合适简历');
+            $('#refuseDelivery').addClass('current');
+            get_resume_list('refused')
+        });
+    });
+
+    function remove_current() {
+        $('#allDelivery').removeClass('current');
+        $('#successDelivery').removeClass('current');
+        $('#notifyDelivery').removeClass('current');
+        $('#passDelivery').removeClass('current');
+        $('#refuseDelivery').removeClass('current');
+    }
+
+    function get_resume_list(status) {
+
+        $.post(
+            '{% url 'status' %}',
+            {'status': status},
+            function (response) {
+                $('#delivery_list').replaceWith('<ul class="reset my_delivery" id="delivery_list" style="margin:30px 40px"></ul>');
+                $(response).each(
+                    function (i, resume) {
+                        $('#delivery_list').html($('#delivery_list').html() +
+                            "<li>\n" +
+                            "    <div class=\"d_item\">" +
+                            "      <h2 title=\"随便写\">" +
+                            "      <a target=\"_blank\" href=\""+resume.position_id+"\">" +
+                            "      <em>"+ resume.position_name +"</em>" +
+                            "      <span>（"+resume.mix_salary+"-"+resume.max_salary+"）</span></a></h2>" +
+                            "      <div class=\"clear\"></div>" +
+                            "        <a title=\"公司名称\" class=\"d_jobname\" target=\"_blank\">" +
+                            "          "+ resume.org_name +" <span>["+ resume.work_city +"]</span></a>" +
+                            "        <span class=\"d_time\">"+ resume.post_date +"</span>\n" +
+                            "        <div class=\"clear\"></div>\n" +
+                            "        <div class=\"d_resume\">\n" +
+                            "        简历状态：\n" +
+                            "        <span>" + resume.status + "</span></div></div></li>")
+                    }
+                )
+            }
+        )
+    }
+</script>
+
+</body>
+</html>

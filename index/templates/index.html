@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+
+    {% load staticfiles %}
+
+    <script type="text/javascript" async="" src="{% static 'js/conversion.js' %}"></script>
+    <script src="{% static 'js/allmobilize.min.js' %}" charset="utf-8" id="allmobilize"></script>
+    <meta charset="UTF-8">
+    <title>首页-淘职-让求职更简单</title>
+
+
+    {#    <link rel="stylesheet" href="{% static 'css/agent.css' %}">#}
+    <link rel="stylesheet" href="{% static 'css/global.common.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/external.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/popup.css' %}">
+
+    {#    <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>#}
+    {#    <script type="text/javascript" src="{% static 'js/bootstrap-dropdown.js' %}"></script>#}
+    <script type="text/javascript" src="{% static 'js/jquery.1.10.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.lib.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/ajaxfileupload.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/additional-methods.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/excanvas.js' %}"></script>
+    <script type="text/javascript">
+        var youdao_conv_id = 271546;
+    </script>
+    <script type="text/javascript" src="{% static 'js/conv.js' %}"></script>
+    <script charset="UTF-8" src="{% static 'js/ajaxCross.json' %}"></script>
+    <script type="text/javascript" src="{% static 'js/search.min.js' %}"></script>
+
+
+</head>
+<body>
+<div id="body">
+    <!-- 菜单栏-->
+    <div id="header">
+        <div class="index_wrapper">
+            <a href="" class="logo">
+                <img src="{% static 'imgs/logo.png' %}" width="229" height="43" alt="淘职-让求职更简单"/>
+            </a>
+            <ul class="reset" id="navheader">
+                <li class="current"><a href="/">首页</a></li>
+                <li><a href="/search/company">公司</a></li>
+                {% if logined %}
+                    <li><a href="{% url 'myresume' %}">我的简历</a></li>
+                {% endif %}
+            </ul>
+            <!-- 用户已登录-->
+            {% if logined %}
+                <div class="navheader_dropdown">
+                    <botton class="navheader_bropbtn">欢迎回来，{{ user_real_name }}
+                        <!--<img src="{% static 'imgs/drop.png' %}"> --></botton>
+                    <div class="navheader_dropdown_content">
+                        <a href="{% url 'myresume' %}">我的简历</a>
+                        {#                        <a href="{% url 'mydelivery' %}">职位反馈</a>#}
+                        <a href="{% url 'mycollection' %}">我的收藏</a>
+                        <a href="{% url 'mydelivery' %}">我的投递</a>
+                        {#                        <a href="{% url 'mysubscribe' %}">我的订阅</a>#}
+                        <a href="">账号设置</a>
+                        <a href="{% url 'logout' %}">退出</a>
+                    </div>
+                </div>
+            {% else %}
+                <ul class="loginTop">
+                    <li><a href="/user/login/">登录</a></li>
+                    <li>|</li>
+                    <li><a href="/user/register">注册</a></li>
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+    <!-- 搜索框-->
+    <div class="container_search">
+        <div id="search_box">
+            <form id="searchForm" action="{% url 'search' %}" method="post">
+                {% csrf_token %}
+                <ul id="searchType">
+                    <li data-searchtype="1" class="type_selected">职位</li>
+                    <li data-searchtype="4">公司</li>
+                </ul>
+                <div class="searchtype_arrow"></div>
+                <input type="text" id="search_input_type" name="search_input_type" tabindex="1" hidden value=""/>
+                <input type="text" id="search_input" name="search_input" tabindex="1" value=""
+                       placeholder="请输入职位名称，如：产品经理"/>
+                <input type="submit" id="search_button" value="搜索"/>
+            </form>
+        </div>
+        <style>
+            .ui-autocomplete {
+                width: 488px;
+                background: #fafafa !important;
+                position: relative;
+                z-index: 10;
+                border: 2px solid #f4900d;
+            }
+
+            .ui-autocomplete-category {
+                font-size: 16px;
+                color: #999;
+                width: 50px;
+                position: absolute;
+                z-index: 11;
+                right: 0px; /*top: 6px; */
+                text-align: center;
+                border-top: 1px dashed #e5e5e5;
+                padding: 5px 0;
+            }
+
+            .ui-menu-item {
+                *width: 439px;
+                vertical-align: middle;
+                position: relative;
+                margin: 0px;
+                margin-right: 50px !important;
+                background: #fff;
+                border-right: 1px dashed #ededed;
+            }
+
+            .ui-menu-item a {
+                display: block;
+                overflow: hidden;
+            }
+        </style>
+        <script type="text/javascript" src="{% static 'js/search.min.js' %}"></script>
+
+        <div id="hotSearch_box">
+            <script type="text/javascript" src="{% static 'js/search.min.js' %}"></script>
+            <dl id="hotSearch">
+                <dt class="hot_position">热门搜索：</dt>
+                <dd><a href="javascript:void(0)">Java</a></dd>
+                <dd><a href="javascript:void(0)">PHP</a></dd>
+                <dd><a href="javascript:void(0)">Android</a></dd>
+                <dd><a href="javascript:void(0)">iOS</a></dd>
+                <dd><a href="javascript:void(0)">前端</a></dd>
+                <dd><a href="javascript:void(0)">产品经理</a></dd>
+                <dd><a href="javascript:void(0)">UI</a></dd>
+                <dd><a href="javascript:void(0)">运营</a></dd>
+                <dd><a href="javascript:void(0)">BD</a></dd>
+                <dd><a href="javascript:void(0)">实习</a></dd>
+            </dl>
+        </div>
+    </div><!---->
+
+    <!-- 职位菜单栏-->
+    <div id="container_bigbg">
+        <div id="content_bigbg">
+            <div id="content_bar">
+                <div id="sidebar">
+                    <div class="mainNavs">
+                        {% for lable in lables %}
+                            <div class="menu_box">
+                                <div class="menu_main">
+                                    <h2>{{ lable.name }} <span>  </span></h2>
+                                    {% for lable2 in lable.job_label2_set.all %}
+                                        <a href="javascript:void(0)">{{ lable2.name }}</a>
+                                    {% endfor %}
+                                </div>
+                                <div class="menu_sub dn" id="menu_sub1">
+                                    {% for lable2 in lable.job_label2_set.all %}
+                                        <dl class="reset">
+                                            <dt>
+                                                <a href="">{{ lable2.name }}</a>
+                                            </dt>
+                                            <dd>
+                                                {% for lable3 in lable2.job_label3_set.all %}
+                                                    <a href="javascript:void(0)">{{ lable3.name }}</a>
+                                                {% endfor %}
+                                            </dd>
+                                        </dl>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+                <div style="float: right">
+                    <img src="{% static 'imgs/index_bigbg.png' %}">
+                </div>
+
+
+                <!--热门职位 -->
+                <div id="container_body">
+                    <ul class="hotabbing reset">
+                        <li class="current">热门职位</li>
+                        <div><a href="{% url 'search' %}" class="btn fr" style="margin-top: 0px;height: 28px">查看更多</a>
+                        </div>
+                    </ul>
+                    <div id="hotList" style="height: 80%">
+                        <ul class="hot_pos reset">
+                            {% for position in hot_position_3 %}
+                                <div class="hot_pos_box" style="width:300px;margin: 10px 20px;float: left">
+                                    <li class="clearfix" style="width:300px">
+                                        <div class="hot_pos_m">
+                                            <div class="mb10">
+                                                <a href="/position/{{ position.position_info.id }}"
+                                                   style="float: left;max-width:100px;display: inline-block;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">{{ position.position_info.name }}</a>&nbsp;
+                                                <span style="font-size: 12px;float: left;margin-left: 10px"><em
+                                                        class="c7">&nbsp;[1天前发布]</em></span>
+                                                <span class="c9"
+                                                      style="float: right;margin-right:20px;color: red;font-size: 16px">&nbsp;{{ position.position_info.start_salary }}k-{{ position.position_info.end_salary }}k</span>
+                                            </div>
+                                            <span><em
+                                                    class="c7">经验{{ position.position_info.work_exp }}\{{ position.position_info.edu_exp }}</em></span>
+
+                                            <br/>
+                                            <div class="hot_pos_r" style="width:300px;margin-top: 12px">
+                                                <div class="mb10">
+                                                    <a href="/search/companydetail/{{ position.position_info.org.id }}">{{ position.position_info.org.name }}</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    <span style="float: right;margin-right: 20px"><em
+                                                            class="c7">{{ position.position_info.org.city }}</em></span>
+                                                </div>
+                                                <ul class="companyTags reset">
+                                                    <li style="margin-right: 15px">工作环境好</li>
+                                                    <li style="margin-right: 15px">福利好</li>
+                                                    <li style="margin-right: 15px">商业险</li>
+                                                </ul>
+                                            </div>
+                                            <!-- <a  class="wb">分享到微博</a> -->
+                                        </div>
+                                    </li>
+                                </div>
+                            {% endfor %}
+                            {% for position in hot_position_6 %}
+                                <div class="hot_pos_box" style="width:300px;margin: 10px 20px;float: left">
+                                    <li class="odd clearfix" style="width:300px">
+                                        <div class="hot_pos_m">
+                                            <div class="mb10">
+                                                <a href="/position/{{ position.id }}"
+                                                   style="float: left;max-width:100px;display: inline-block;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">{{ position.position_info.name }}</a>&nbsp;
+                                                <span style="font-size: 12px;float: left;margin-left: 10px"><em
+                                                        class="c7">&nbsp;[1天前发布]</em></span>
+                                                <span class="c9"
+                                                      style="float: right;margin-right:20px;color: red;font-size: 16px">&nbsp;{{ position.position_info.start_salary }}k-{{ position.position_info.end_salary }}k</span>
+                                            </div>
+                                            <span><em
+                                                    class="c7">经验{{ position.position_info.work_exp }}\{{ position.position_info.edu_exp }}</em></span>
+
+                                            <br/>
+                                            <div class="hot_pos_r" style="width:300px;margin-top: 12px">
+                                                <div class="mb10">
+                                                    <a href="/search/companydetail/{{ position.position_info.org.id }}">{{ position.position_info.org.name }}</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    <span style="float: right;margin-right: 20px"><em
+                                                            class="c7">{{ position.position_info.org.city }}</em></span>
+                                                </div>
+                                                <ul class="companyTags reset">
+                                                    <li style="margin-right: 15px">工作环境好</li>
+                                                    <li style="margin-right: 15px">福利好</li>
+                                                    <li style="margin-right: 15px">商业险</li>
+                                                </ul>
+                                            </div>
+                                            <!-- <a  class="wb">分享到微博</a> -->
+                                        </div>
+                                    </li>
+                                </div>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="clear"></div>
+
+                </div>
+                <!--最新职位 -->
+                <div id="container_new_body">
+                    <ul class="hotabbing reset">
+                        <li class="current">最新职位</li>
+                        <div><a href="{% url 'search' %}" class="btn fr" style="margin-top: 0px;height: 28px">查看更多</a>
+                        </div>
+                    </ul>
+                    <div id="hotList" style="height: 80%">
+                        <ul class="hot_pos hot_posHotPosition reset">
+                            {% for position in latest_3 %}
+                                <div class="hot_pos_box" style="width:300px;margin: 10px 20px;float: left">
+                                    <li class="clearfix" style="width:300px">
+                                        <div class="hot_pos_m">
+                                            <div class="mb10">
+                                                <a href="/position/{{ position.id }}"
+                                                   style="float: left;max-width:100px;display: inline-block;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">{{ position.name }}</a>&nbsp;
+                                                <span style="font-size: 12px;float: left;margin-left: 10px"><em
+                                                        class="c7">&nbsp;[1天前发布]</em></span>
+                                                <span class="c9"
+                                                      style="float: right;margin-right:20px;color: red;font-size: 16px">&nbsp;{{ position.start_salary }}k-{{ position.end_salary }}k</span>
+                                            </div>
+                                            <span><em
+                                                    class="c7">经验{{ position.work_exp }}\{{ position.edu_exp }}</em></span>
+
+                                            <br/>
+                                            <div class="hot_pos_r" style="width:300px;margin-top: 12px">
+                                                <div class="mb10">
+                                                    <a href="/search/companydetail/{{ position.org.id }}">{{ position.org.name }}</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    <span style="float: right;margin-right: 20px"><em
+                                                            class="c7">{{ position.org.city }}</em></span>
+                                                </div>
+                                                <ul class="companyTags reset">
+                                                    <li style="margin-right: 15px">工作环境好</li>
+                                                    <li style="margin-right: 15px">福利好</li>
+                                                    <li style="margin-right: 15px">商业险</li>
+                                                </ul>
+                                            </div>
+                                            <!-- <a  class="wb">分享到微博</a> -->
+                                        </div>
+                                    </li>
+                                </div>
+                            {% endfor %}
+                            {% for position in latest_6 %}
+                                <div class="hot_pos_box" style="width:300px;margin: 10px 20px;float: left">
+                                    <li class="odd clearfix" style="width:300px">
+                                        <div class="hot_pos_m">
+                                            <div class="mb10">
+                                                <a href="/position/{{ position.id }}"
+                                                   style="float: left;max-width:100px;display: inline-block;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;">{{ position.name }}</a>&nbsp;
+                                                <span style="font-size: 12px;float: left;margin-left: 10px"><em
+                                                        class="c7">&nbsp;[1天前发布]</em></span>
+                                                <span class="c9"
+                                                      style="float: right;margin-right:20px;color: red;font-size: 16px">&nbsp;{{ position.start_salary }}k-{{ position.end_salary }}k</span>
+                                            </div>
+                                            <span><em
+                                                    class="c7">经验{{ position.work_exp }}\{{ position.edu_exp }}</em></span>
+
+                                            <br/>
+                                            <div class="hot_pos_r" style="width:300px;margin-top: 12px">
+                                                <div class="mb10">
+                                                    <a href="/search/companydetail/{{ position.org.id }}">{{ position.org.name }}</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                    <span style="float: right;margin-right: 20px"><em
+                                                            class="c7">{{ position.org.city }}</em></span>
+                                                </div>
+                                                <ul class="companyTags reset">
+                                                    <li style="margin-right: 15px">工作环境好</li>
+                                                    <li style="margin-right: 15px">福利好</li>
+                                                    <li style="margin-right: 15px">商业险</li>
+                                                </ul>
+                                            </div>
+                                            <!-- <a  class="wb">分享到微博</a> -->
+                                        </div>
+                                    </li>
+                                </div>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="clear"></div>
+
+                </div>
+            </div>
+
+            <!-- 回到顶部-->
+            <script type="text/javascript" src="{% static 'js/Chart.min.js' %}"></script>
+            <script type="text/javascript" src="{% static 'js/profile.min.js' %}"></script>
+            <script type="text/javascript" src="{% static 'js/home.min.js' %}"></script>
+            <script type="text/javascript" src="{% static 'js/count.js' %}"></script>
+            <div class="clear"></div>
+            <input type="hidden" id="resubmitToken" value=""/>
+            <a id="backtop" title="回到顶部" rel="nofollow"></a>
+
+        </div>
+
+
+    </div>
+    <script type="text/javascript" src="{% static 'js/core.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/popup.min.js' %}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var type = $('.type_selected').text();
+            $('#search_input_type').val(type);
+
+
+            $("#searchType li").click(function () {
+                var type = $('.type_selected').text();
+                $('#search_input_type').val(type);
+            });
+            $('a').click(function () {
+                $.ajax({
+                    url: "{% url 'search' %}",
+                    type: 'post',
+                    data: {
+                        csrfmiddlewaretoken: '{{ csrf_token }}',
+                        search_input: $(this).text(),
+                        search_input_type:'职位'
+                    },
+                    success: function (result) {
+                        window.location.href = '/search/'
+                    }
+                });
+            })
+        })
+    </script>
+</div>
+<div id="footer" style="position: relative; top:100px">
+    <div class="wrapper">
+        <a href="h/about.html" target="_blank" rel="nofollow">联系我们</a>
+        <a href="h/af/zhaopin.html" target="_blank">互联网公司导航</a>
+        <div class="copyright">&copy;2013-2014 淘职 <a target="_blank"
+                                                     href="http://www.miitbeian.gov.cn/state/outPortal/loginPortal.action">京ICP备14023790号-2</a>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>

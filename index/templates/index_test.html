@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<ul>
+    {% for lable in lables %}
+        <li>{{ lable.name }}</li>
+        {% for lable2 in lable.job_label2_set.all %}
+            <li>{{ lable2.name }}</li>
+            {% for lable3 in lable2.job_label3_set.all %}
+                <li>{{ lable3.name }}</li>
+            {% endfor %}
+        {% endfor %}
+    {% endfor %}
+
+</ul>
+</body>
+</html>

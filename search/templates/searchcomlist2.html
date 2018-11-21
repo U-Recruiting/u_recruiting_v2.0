@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <script type="text/javascript" async="" src="{% static 'js/conversion.js' %}"></script>
+    <script src="{% static 'js/allmobilize.min.js' %}" charset="utf-8" id="allmobilize"></script>
+    <meta charset="UTF-8">
+    <title>搜索公司职位</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/global.common.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/company.css' %}">
+    <link rel="stylesheet" href="{% static 'css/external.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/popup.css' %}">
+
+    <script type="text/javascript" src="{% static 'js/jquery.1.10.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.lib.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/ajaxfileupload.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/additional-methods.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/excanvas.js' %}"></script>
+    <script type="text/javascript">
+        var youdao_conv_id = 271546;
+    </script>
+    <script type="text/javascript" src="{% static 'js/conv.js' %}"></script>
+    <script charset="UTF-8" src="{% static 'js/ajaxCross.json' %}"></script>
+</head>
+<body>
+<div id="body">
+    <div id="header">
+        <div class="index_wrapper">
+            <a href="index.html" class="logo">
+                <img src="{% static 'imgs/logo.png' %}" width="229" height="43" alt="淘职-让求职更简单"/>
+            </a>
+            <ul class="reset" id="navheader">
+                <li><a href="/">首页</a></li>
+                <li><a href="{% url 'company' %}">公司</a></li>
+                {% if logined %}
+                    <li><a href="{% url 'myresume' %}" rel="nofollow">我的简历</a></li>
+                {% endif %}
+            </ul>
+            {% if logined %}
+                <div class="navheader_dropdown">
+                    <botton class="navheader_bropbtn">欢迎回来，{{ user_real_name }}
+                        <!--<img src="{% static 'imgs/drop.png' %}"> --></botton>
+                    <div class="navheader_dropdown_content">
+                        <a href="{% url 'myresume' %}">我的简历</a>
+                        <a href="{% url 'mycollection' %}">我的收藏</a>
+                        <a href="{% url 'mydelivery' %}">我的投递</a>
+                        <a href="">账号设置</a>
+                        <a href="{% url 'logout' %}">退出</a>
+                    </div>
+                </div>
+            {% else %}
+                <ul class="loginTop">
+                    <li><a href="/user/login/">登录</a></li>
+                    <li>|</li>
+                    <li><a href="/user/register">注册</a></li>
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+    <div class="container_search">
+        <div id="search_box">
+
+            <form id="searchForm" name="searchForm" action="{% url 'search' %}" method="post">
+                {% csrf_token %}
+                <ul id="searchType">
+                    <li data-searchtype="1" class="type_selected">职位</li>
+                    <li data-searchtype="4">公司</li>
+                </ul>
+                <div class="searchtype_arrow"></div>
+                <input type="text" id="search_input" name="search_input" tabindex="1" value=""
+                       placeholder="请输入职位名称，如：产品经理"/>
+                <input type="submit" id="search_button" value="搜索"/>
+            </form>
+        </div>
+        <style>
+            .ui-autocomplete {
+                width: 488px;
+                background: #fafafa !important;
+                position: relative;
+                z-index: 10;
+                border: 2px solid #f4900d;
+            }
+
+            .ui-autocomplete-category {
+                font-size: 16px;
+                color: #999;
+                width: 50px;
+                position: absolute;
+                z-index: 11;
+                right: 0px; /*top: 6px; */
+                text-align: center;
+                border-top: 1px dashed #e5e5e5;
+                padding: 5px 0;
+            }
+
+            .ui-menu-item {
+                *width: 439px;
+                vertical-align: middle;
+                position: relative;
+                margin: 0px;
+                margin-right: 50px !important;
+                background: #fff;
+                border-right: 1px dashed #ededed;
+            }
+
+            .ui-menu-item a {
+                display: block;
+                overflow: hidden;
+            }
+        </style>
+        <script type="text/javascript" src="{% static 'js/search.min.js' %}"></script>
+    </div><!--搜索框-->
+
+    <div id="container_list">
+        <!--条件栏-->
+        <div class="clearfix">
+            <div class="content_l">
+                <form id="companyListForm" name="companyListForm" method="get" action="/search">
+                    <input type="hidden" id="city" name="city" value="{{ city }}"/>
+                    <input type="hidden" id="workExpSelectInput" name="workExpSelectInput" value="{{ work_exp }}"/>
+                    <input type="hidden" id="eduExpSelectInput" name="eduExpSelectInput" value="{{ edu_exp }}"/>
+                    <input type="hidden" id="scaleInput" name="scaleInput" value="{{ scale }}"/>
+                    <input type="hidden" id="domainInput" name="domainInput" value="{{ type }}"/>
+                    <dl class="hc_tag">
+                        <dt><!--  <h2 class="fl">热门公司</h2> -->
+                            <ul class="workplace reset fr" id="workplaceSelect">
+                                <li>
+                                    <a href="javascript:void(0)" class="current">全国</a>
+                                    |
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">北京</a>|
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">上海</a>|
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">广州</a>
+                                    |
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">深圳</a>
+                                    |
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">成都</a>
+                                    |
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">杭州</a>
+                                    |
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">武汉</a>
+                                    |
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)">南京</a>
+                                    |
+                                </li>
+                                <li class="more">
+                                    <a href="javascript:void(0)">其他</a>
+                                    <div class="triangle citymore_arrow"></div>
+                                </li>
+                                <li id="box_expectCity" class="searchlist_expectCity dn">
+                                    <span class="bot"></span>
+                                    <span class="top"></span>
+                                    <dl>
+                                        <dt>ABCDEF</dt>
+                                        <dd>
+                                            <span>北京</span>
+                                            <span>长春</span>
+                                            <span>成都</span>
+                                            <span>重庆</span>
+                                            <span>长沙</span>
+                                            <span>常州</span>
+                                            <span>东莞</span>
+                                            <span>大连</span>
+                                            <span>佛山</span>
+                                            <span>福州</span>
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>GHIJ</dt>
+                                        <dd>
+                                            <span>贵阳</span>
+                                            <span>广州</span>
+                                            <span>哈尔滨</span>
+                                            <span>合肥</span>
+                                            <span>海口</span>
+                                            <span>杭州</span>
+                                            <span>惠州</span>
+                                            <span>金华</span>
+                                            <span>济南</span>
+                                            <span>嘉兴</span>
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>KLMN</dt>
+                                        <dd>
+                                            <span>昆明</span>
+                                            <span>廊坊</span>
+                                            <span>宁波</span>
+                                            <span>南昌</span>
+                                            <span>南京</span>
+                                            <span>南宁</span>
+                                            <span>南通</span>
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>OPQR</dt>
+                                        <dd>
+                                            <span>青岛</span>
+                                            <span>泉州</span>
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>STUV</dt>
+                                        <dd>
+                                            <span>上海</span>
+                                            <span>石家庄</span>
+                                            <span>绍兴</span>
+                                            <span>沈阳</span>
+                                            <span>深圳</span>
+                                            <span>苏州</span>
+                                            <span>天津</span>
+                                            <span>太原</span>
+                                            <span>台州</span>
+                                        </dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>WXYZ</dt>
+                                        <dd>
+                                            <span>武汉</span>
+                                            <span>无锡</span>
+                                            <span>温州</span>
+                                            <span>西安</span>
+                                            <span>厦门</span>
+                                            <span>烟台</span>
+                                            <span>珠海</span>
+                                            <span>中山</span>
+                                            <span>郑州</span>
+                                        </dd>
+                                    </dl>
+                                </li>
+                            </ul>
+                        </dt>
+                        <dd>
+                            <dl>
+                                <dt>工作经验：</dt>
+                                <dd id="workExpSelect">
+                                    <a href="javascript:void(0)">应届生</a>
+                                    <a href="javascript:void(0)">3年及以下</a>
+                                    <a href="javascript:void(0)">3-5年</a>
+                                    <a href="javascript:void(0)">5-10年</a>
+                                    <a href="javascript:void(0)">10年以上</a>
+                                    <a href="javascript:void(0)">不限</a>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt>学历要求：</dt>
+                                <dd id="eduExpSelect">
+                                    <a href="javascript:void(0)">大专</a>
+                                    <a href="javascript:void(0)">本科</a>
+                                    <a href="javascript:void(0)">硕士</a>
+                                    <a href="javascript:void(0)">博士</a>
+                                    <a href="javascript:void(0)">不限</a>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt>公司规模：</dt>
+                                <dd id="scale">
+                                    <a href="javascript:void(0)">少于15人</a>
+                                    <a href="javascript:void(0)">15-50人</a>
+                                    <a href="javascript:void(0)">50-150人</a>
+                                    <a href="javascript:void(0)">500-2000人</a>
+                                    <a href="javascript:void(0)">2000人以上</a>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt>行业领域：</dt>
+                                <dd id="domain">
+                                    <a href="javascript:void(0)">移动互联网</a>
+                                    <a href="javascript:void(0)">电子商务</a>
+                                    <a href="javascript:void(0)">社交</a>
+                                    <a href="javascript:void(0)">企业服务</a>
+                                    <a href="javascript:void(0)">O2O</a>
+                                    <a href="javascript:void(0)">教育</a>
+                                    <a href="javascript:void(0)">文化艺术</a>
+                                    <a href="javascript:void(0)">游戏</a>
+                                    <a href="javascript:void(0)">在线旅游</a>
+                                    <a href="javascript:void(0)">金融互联网</a>
+                                    <a href="javascript:void(0)">健康医疗</a>
+                                    <a href="javascript:void(0)">生活服务</a>
+                                    <a href="javascript:void(0)">硬件</a>
+                                    <a href="javascript:void(0)">搜索</a>
+                                    <a href="javascript:void(0)">安全</a>
+                                    <a href="javascript:void(0)">运动体育</a>
+                                    <a href="javascript:void(0)">云计算\大数据</a>
+                                    <a href="javascript:void(0)">移动广告</a>
+                                    <a href="javascript:void(0)">社会化营销</a>
+                                    <a href="javascript:void(0)">视频多媒体</a>
+                                    <a href="javascript:void(0)">媒体</a>
+                                    <a href="javascript:void(0)">智能家居</a>
+                                    <a href="javascript:void(0)">智能电视</a>
+                                    <a href="javascript:void(0)">分类信息</a>
+                                    <a href="javascript:void(0)">招聘</a>
+                                </dd>
+                            </dl>
+                        </dd>
+                    </dl>
+                </form>
+            </div>
+        </div><!--end条件栏-->
+        <!--职位列表-->
+        <div id="container_companylist">
+            <ul class="hotabbing reset">
+                <li class="current">默认</li>
+                <li>最新</li>
+            </ul>
+            <div id="hotList" style="height: 80%;margin-top: 20px">
+                <ul class="hot_pos reset">
+                    {% for position in position_list %}
+                        <li class="odd clearfix" style="width: 998px">
+                            <div class="hot_pos_left">
+                                <div class="mb10">
+                                    <a href="/position/{{ position.id }}" target="_blank">{{ position.name }}</a>
+                                    &nbsp;
+                                    <span class="c9">[{{ position.city }}]</span><span>{{ position.timedelta }}天前发布</span>
+                                </div>
+                                <span><em class="c7"
+                                          style="color: red;font-size: medium">{{ position.start_salary }}k-{{ position.end_salary }}k</em></span>
+                                <span><em class="c7">{{ position.work_exp }}\{{ position.edu_exp }}</em> </span>
+                                <br/>
+                                <span><em class="c7">职位诱惑：</em>{{ position.positionAdvantage }}</span>
+                                <br/>
+
+                            </div>
+                            <div class="hot_pos_right">
+                                <div class="apply">
+                                    <a href="/shoot/{{ position.id }}" target="_blank">投个简历</a>
+                                </div>
+                                {#                            <div class="mb10 recompany"><a href="h/c/399.html" target="_blank">节操精选</a></div>#}
+                                <span><em
+                                        class="c7">{{ position.org.type }}\{{ position.org.phase }}\{{ position.org.scale }}</em> </span>
+                                <br/>
+                                <ul class="comTags reset">
+                                    {% for tag  in position.tags %}
+                                        <li>{{ tag }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+
+                        </li>
+                    {% endfor %}
+                </ul>
+                <ul class="hot_pos hot_posHotPosition reset" style="display:none;">
+
+                    {% for position in position_list %}
+                        <li class="odd clearfix" style="width: 998px">
+                            <div class="hot_pos_left">
+                                <div class="mb10">
+                                    <a href="/position/{{ position.id }}" target="_blank">{{ position.name }}</a>
+                                    &nbsp;
+                                    <span class="c9">[{{ position.city }}]</span><span>x天前发布</span>
+                                </div>
+                                <span><em class="c7"
+                                          style="color: red;font-size: medium">{{ position.start_salary }}-{{ position.end_salary }}</em></span>
+                                <span><em class="c7">{{ position.work_exp }}\{{ position.edu_exp }}</em> </span>
+                                <br/>
+                                <span><em class="c7">职位诱惑：</em>{{ position.positionAdvantage }}</span>
+                                <br/>
+
+                            </div>
+                            <div class="hot_pos_right">
+                                <div class="apply">
+                                    <a href="/shoot/{{ position.id }}" target="_blank">投个简历</a>
+                                </div>
+                                {#                            <div class="mb10 recompany"><a href="h/c/399.html" target="_blank">节操精选</a></div>#}
+                                <span><em
+                                        class="c7">{{ position.org.type }}\{{ position.org.phase }}\{{ position.org.scale }}</em> </span>
+                                <br/>
+                                <ul class="comTags reset">
+                                    {% for tag  in position.tags %}
+                                        <li>{{ tag }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+
+                        </li>
+                    {% endfor %}
+
+                </ul>
+            </div>
+
+            <div class="Pagination">
+
+            </div>
+        </div>
+
+        <input type="hidden" value="" name="userid" id="userid"/>
+        {#        <script type="text/javascript" src="{% static 'js/company_list.min.js' %}"></script>#}
+        <script>
+            $(function () {
+
+
+                    /*分页 */
+                    $('.Pagination').pager({
+                        currPage: {{ page }},
+                        pageNOName: "pn",
+                        form: "companyListForm",
+                        pageCount: {{ paginator.num_pages }},
+                        pageSize: 15
+                    });
+                    $('#workplaceSelect li a').click(function () {
+                        $(this).addClass('current').parent().siblings().children().removeClass('current');
+                        $('#city').val($(this).text());
+                        $('#companyListForm').submit();
+
+                    });
+                    $('#workExpSelect a').click(function () {
+                        $(this).addClass('current').siblings().removeClass('current');
+                        $('#workExpSelectInput').val($(this).text());
+                        $('#companyListForm').submit();
+
+                    });
+                    $('#eduExpSelect a').click(function () {
+                        $(this).addClass('current').siblings().removeClass('current');
+                        $('#eduExpSelectInput').val($(this).text());
+                        $('#companyListForm').submit();
+
+                    });
+                    $('#scale a').click(function () {
+                        $(this).addClass('current').siblings().removeClass('current');
+                        $('#scaleInput').val($(this).text());
+                        $('#companyListForm').submit();
+
+                    });
+                    $('#domain a').click(function () {
+                        $(this).addClass('current').siblings().removeClass('current');
+                        $('#domainInput').val($(this).text());
+                        $('#companyListForm').submit();
+
+                    });
+
+
+                }
+            )
+        </script>
+
+        <script type="text/javascript" src="{% static 'js/Chart.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/home.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/count.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/core.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/popup.min.js' %}"></script>
+    </div><!-- end #container -->
+
+</div>
+<div id="footer">
+    <div class="wrapper">
+        <a href="h/about.html" target="_blank" rel="nofollow">联系我们</a>
+        <a href="h/af/zhaopin.html" target="_blank">互联网公司导航</a>
+        <div class="copyright">&copy;2013-2014 Lagou <a target="_blank"
+                                                        href="http://www.miitbeian.gov.cn/state/outPortal/loginPortal.action">京ICP备14023790号-2</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

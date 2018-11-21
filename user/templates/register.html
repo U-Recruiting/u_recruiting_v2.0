@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <script id="allmobilize" charset="utf-8" src="{% static 'js/allmobilize.min.js' %}"></script>
+    <meta charset="UTF-8">
+    <title>注册-淘职</title>
+
+    <link rel="stylesheet" href="{% static 'css/agent.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/global.common.css' %}">
+
+    <script type="text/javascript" src="{% static 'js/jquery.1.10.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.lib.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/core.min.js' %}"></script>
+
+</head>
+<body id="login_container">
+<div class="login_wrapper">
+    <div class="login_header">
+        <a href=""><img src="{% static '/imgs/logo.png' %}" width="285" height="62" alt="招聘"/></a>
+    </div>
+    <input type="hidden" id="resubmitToken" value="9b207beb1e014a93bc852b7ba450db27"/>
+    <div class="login_box">
+
+        <form id="loginForm" class="form">
+            {% csrf_token %}
+            <ul class="register_radio clearfix">
+                <li>
+                    找工作
+                    <input type="radio" value="0" name="type"/>
+                </li>
+                <li>
+                    招人
+                    <input type="radio" value="1" name="type"/>
+                </li>
+            </ul>
+            <span class="error" style="display:none;" id="beError"></span>
+            {% if tips %}
+                <div class="tips">{{ tips }}</div>
+            {% endif %}
+            <input type="text" id="email" name="email" value="{{ username }}" tabindex="1" placeholder="请输入邮箱"
+                   style="width:296px;font-size:16px; color:#777; border:1px solid #f4c232;background-color: white"/>
+            <span class="error" style="display:none;" id="beError"></span>
+            <input type="password" id="password" name="password" value="" tabindex="1" placeholder="请输入密码"
+                   style="width:296px;font-size:16px; color:#777; border:1px solid #f4c232;background-color: white"/>
+            <span class="error" style="display:none;" id="beError"></span>
+            <input type="password" id="passwordAgain" name="passwordAgain" value="" tabindex="1" placeholder="请再次输入密码"
+                   style="width:296px;font-size:16px; color:#777; border:1px solid #f4c232;background-color: white"/>
+            <span class="error" style="display:none;" id="beError"></span>
+            {#            <input type="password" id="password" name="password" tabindex="2" style="width:296px;font-size:16px;"#}
+            {#                   value="{{ password }}" placeholder="请设置密码"/>#}
+            {#            <input type="password" id="password_again" name="password_again" tabindex="3"#}
+            {#                   style="width:296px;font-size:16px;"#}
+            {#                   value="{{ password_again }}" placeholder="请再次确认密码"/>#}
+            <div class="verification">
+                <input type="text" id="verificationCode" name="verificationCode" tabindex="2" placeholder="请输入验证码"/>
+                <input type="button" value="获取验证码" id="code_button" class="Code"></input>
+            </div>
+            <div style="clear: both" class="verification2">
+                <span class="error" style="display:none;" id="beError"></span>
+            </div>
+
+
+            <label class="fl registerAgree" for="checkbox">
+                <input type="checkbox" id="checkbox" name="checkbox" checked class="checkbox valid"/>我已阅读并同意<a
+                    href="/user/privacy/" target="_blank">《用户协议》</a>
+            </label>
+            <button type="botton" class="submitLogin">注 &nbsp; &nbsp; 册</button>
+
+            <input type="hidden" id="callback" name="callback" value=""/>
+            <input type="hidden" id="authType" name="authType" value=""/>
+            <input type="hidden" id="signature" name="signature" value=""/>
+            <input type="hidden" id="timestamp" name="timestamp" value=""/>
+
+        </form>
+        <div class="login_right">
+            <div>已有帐号</div>
+            <a href="/user/login" class="registor_now">直接登录</a>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $("#code_button").click(function () {
+            {#error_mobile = check_mobile();#}
+            error_email = check_email();
+            if (!error_email) {
+                RemainTime();
+                $.ajax({
+                    url: "{% url 'get_verification_code' %}",
+                    type: 'post',
+                    data: {
+                        csrfmiddlewaretoken: '{{ csrf_token }}',
+                        email: $('#email').val(),
+                    },
+                    success: function (result) {
+                        var data = JSON.parse(result);
+                        alert('jhjkjh')
+                    }
+                });
+            }
+        });
+
+        $('.submitLogin').click(
+            function (e) {
+                e.preventDefault();
+                var radio = $('input:radio[name="type"]:checked').val();
+
+                var email = $('#email').val();
+                var code = $('#verificationCode').val();
+                if (!radio) {
+                    $('.register_radio').next().html('请选择目的');
+                    $('.register_radio').next().show();
+
+                }
+                if (!email) {
+                    $('#email').next().html('请输入邮箱');
+                    $('#email').next().show()
+
+                }
+
+                {#error_mobile = check_mobile()#}
+                error_email = check_email();
+                if (!code) {
+                    $('.verification2').children('span').html('请输入验证码');
+                    $('.verification2').children('span').show()
+
+                }
+                if (!radio | !email | !code | error_email) {
+                    return false;
+                }
+
+                $.ajax({
+                    url: "{% url 'register' %}",
+                    type: 'post',
+                    data: {
+                        csrfmiddlewaretoken: '{{ csrf_token }}',
+                        type: $('input:radio[name="type"]:checked').val(),
+                        email: $('#email').val(),
+                        verificationCode: $('#verificationCode').val(),
+                        password : $('#password').val() ,
+                    },
+                    success: function (result) {
+                        if (result.tips === "pass") {
+                            window.location.href = result.url
+                        } else {
+                            $('.verification2').children('span').html(result.tips);
+                            $('.verification2').children('span').show()
+                        }
+
+                    }
+                });
+            }
+        )
+        ;
+
+        $('.register_radio li input').click(function (e) {
+            $(this).parent('li').addClass('current').append('<em></em>').siblings().removeClass('current').find('em').remove();
+        });
+
+
+    });
+
+
+    var iTime = 60;
+    sTime = '';
+
+    function RemainTime() {
+        if (iTime == 0) {
+            document.getElementById('code_button').disabled = false;
+            sTime = "获取验证码";
+            iTime = 60;
+            document.getElementById('code_button').value = sTime;
+            return;
+        } else {
+            document.getElementById('code_button').disabled = true;
+            sTime = "重新发送(" + iTime + ")";
+            iTime--;
+        }
+        setTimeout(function () {
+            RemainTime()
+        }, 1000)
+        document.getElementById('code_button').value = sTime;
+    }
+
+    function check_email() {
+
+        {#var re = /^1[345678]\d{9}$/; //校验手机号#}
+        var re = /^([0-9A-Za-z\-_\.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g //校验邮箱
+
+        if (re.test($('#email').val())) {
+            $('#email').next().hide();
+            error_email = false;
+        }
+        else {
+            $('#email').next().html('你输入的邮箱格式不正确');
+            $('#email').next().show();
+            error_email = true;
+        }
+        return error_email
+    }
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    {% load staticfiles %}
+    <script id="allmobilize" charset="utf-8" src="{% static 'js/allmobilize.min.js' %}"></script>
+    <meta charset="UTF-8">
+    <title>登录-淘职</title>
+
+{#    <link rel="stylesheet" href="{% static 'css/agent.css' %}">#}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/global.common.css' %}">
+
+    <script type="text/javascript" src="{% static 'js/jquery.1.10.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.lib.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/core.min.js' %}"></script>
+
+</head>
+<body id = "login_container">
+    <div class="login_wrapper">
+        <div class="login_header">
+            <a href="/"><img src="{% static '/imgs/logo.png' %}" width="285" height="62" alt="招聘" /></a>
+        </div>
+        <div class="login_box">
+            <form id="loginForm" class="form" action="{{ link }}" method="post">
+                {% csrf_token %}
+{#                <ul class="login_radio clearfix">#}
+{#		            <li>#}
+{#		            	手机号登录#}
+{#		              	<input type="radio" value="0" name="type" />#}
+{#		            </li>#}
+{#		            <li>#}
+{#                        密码登录#}
+{#		              	<input type="radio" value="1" name="type"  />#}
+{#		            </li>#}
+{#		        </ul>#}
+
+                 {% if tips %}
+                    <div class="tips">{{ tips }}  </div>
+                {% endif %}
+                <!-- 判断radio选中第一个 -->
+
+                <input type="text"  id="account" name="account"  value="{{ remembered_email }}" tabindex="1" placeholder="请输入邮箱" style="width:296px;font-size:16px; color:#777; border:1px solid #f4c232;background-color: white"/>
+                <input type="password"  id="password" name="password" tabindex="2" placeholder="请输入密码" />
+                <span class="error" style="display:none;" id="beError"></span>
+
+                <!-- 判断radio选中第二个 -->
+                <!--
+
+                <input type="text"  id="account" name="account"  value="{{ remembered_email }}" tabindex="1" placeholder="请输入用户名" style="width:296px;font-size:16px; color:#777; border:1px solid #f4c232;background-color: white"/>
+                <input type="password"  id="password" name="password" tabindex="2" placeholder="请输入密码" />
+                <span class="error" style="display:none;" id="beError"></span>
+                -->
+
+                <label class="fl" for="remember">
+                    <input type="checkbox" id="remember" {{ checked }} name="autoLogin" /> 记住我
+                </label>
+                <a href="{% url 'reset' %}" class="fr" target="_blank">忘记密码？</a>
+                <button type="submit" class="submitLogin">登 &nbsp; &nbsp; 录</button>
+
+                <input type="hidden" id="callback" name="callback" value=""/>
+                <input type="hidden" id="authType" name="authType" value=""/>
+                <input type="hidden" id="signature" name="signature" value=""/>
+                <input type="hidden" id="timestamp" name="timestamp" value=""/>
+
+            </form>
+            <div class="login_right">
+                <div>还没有帐号？</div>
+                <a  href="{% url 'register' %}"  class="registor_now">立即注册</a>
+
+            </div>
+
+
+
+    </div>
+    </div>
+<script type="text/javascript">
+
+
+    window.onload=function(){
+        $("input[type='radio']").eq(0).prop("checked",true);
+        $("input[type='radio']").eq(0).parent('li').addClass('current').append('<em></em>').siblings().removeClass('current').find('em').remove();
+
+    }
+
+    $(document).ready(function(e) {
+
+    	$('.login_radio li input').click(function(e){
+    		$(this).parent('li').addClass('current').append('<em></em>').siblings().removeClass('current').find('em').remove();
+
+    	});
+
+
+       //验证表单
+	 	$("#loginForm").validate({
+	 		/* onkeyup: false,
+	    	focusCleanup:true, */
+	        rules: {
+	            type:{
+                    required: true
+	    	        	},
+	    	   	phone: {
+	    	    	required: true,
+	    	    	phone: true
+	    	   	},
+                account: {
+	    	    	required: true,
+	    	    	account: true
+	    	   	},
+	    	   	password: {
+	    	    	required: true
+	    	   	}
+	    	},
+	    	messages: {
+
+	    	   	phone: {
+	    	    	required: "请输入手机号",
+	    	    	phone: "请输入有效的手机号"
+	    	   	},
+                account: {
+	    	    	required: "请输入登录用户名",
+	    	    	account: "请输入正确的用户名"
+	    	   	},
+	    	   	password: {
+	    	    	required: "请输入密码"
+	    	   	}
+	    	},
+            errorPlacement:function(label, element){/*
+			    		if(element.attr("type") == "radio"){
+			    			label.insertAfter($(element).parents('ul')).css('marginTop','-20px');
+			    		}else if(element.attr("type") == "checkbox"){
+			    			label.inserresult.contenttAfter($(element).parent()).css('clear','left');
+			    		}else{
+			    			label.insertAfter(element);
+			    		} */
+			    		/*modify nancy*/
+			    		if(element.attr("type") == "radio"){
+			    			label.insertAfter($(element).parents('ul')).css('marginTop','-20px');
+			    		}else if(element.attr("type") == "checkbox"){
+			    			label.insertAfter($(element).parent()).css('clear','left');
+			    		}else{
+			    			label.insertAfter(element);
+			    		};
+			    	},
+	    	submitHandler:function(form){
+
+                var type =$('input[type="radio"]:checked',form).val();
+	    		if($('#remember').prop("checked")){
+	      			$('#remember').val(1);
+	      		}else{
+	      			$('#remember').val(null);
+	      		}
+	    		var phone = $('#phone').val();
+	    		var account = $('#account').val();
+	    		var password = $('#password').val();
+	    		var remember = $('#remember').val();
+
+	    		var callback = $('#callback').val();
+	    		var authType = $('#authType').val();
+	    		var signature = $('#signature').val();
+	    		var timestamp = $('#timestamp').val();
+
+	    		$(form).find(":submit").attr("disabled", true);
+	            $.ajax({
+	            	type:'POST',
+	            	data:{type:type,phone:phone,password:password,account:account,autoLogin:remember, callback:callback, authType:authType, signature:signature, timestamp:timestamp},
+	            	url:ctx+'/user/login.json'
+	            }).done(function(result) {
+					if(result.success){
+					 	if(result.content.loginToUrl){
+							window.location.href=result.content.loginToUrl;
+	            		}else{
+	            			window.location.href=ctx+'/';
+	            		}
+					}else{
+						$('#beError').text(result.msg).show();
+					}
+					$(form).find(":submit").attr("disabled", false);
+	            });
+	        }
+		});
+})
+
+</script>
+
+</body>
+</html>
+

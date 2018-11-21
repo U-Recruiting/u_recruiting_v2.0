@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load staticfiles %}
+</head>
+<body>
+<form  action="{% url 'edit_avatar' %}" method="POST" enctype="multipart/form-data">
+{% csrf_token %}
+<input type="file" name="avatar">
+<button type="submit">上传</button>
+</form>
+<div>
+    <img src="../../static/avatar/{{ user.id }}.jpg">
+</div>
+</body>
+</html>

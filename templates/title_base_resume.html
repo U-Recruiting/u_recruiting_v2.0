@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+
+    {% load staticfiles %}
+
+    <script type="text/javascript" async="" src="{% static 'js/conversion.js' %}"></script>
+    <script src="{% static 'js/allmobilize.min.js' %}" charset="utf-8" id="allmobilize"></script>
+    <meta charset="UTF-8">
+    {% block title %}{% endblock %}
+
+
+    {#    <link rel="stylesheet" href="{% static 'css/agent.css' %}">#}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/global.common.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'css/company.css' %}">
+    <link rel="stylesheet" href="{% static 'css/resume.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/external.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/popup.css' %}">
+
+    {#    <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>#}
+    {#    <script type="text/javascript" src="{% static 'js/bootstrap-dropdown.js' %}"></script>#}
+    <script type="text/javascript" src="{% static 'js/jquery.1.10.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.lib.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/ajaxfileupload.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/additional-methods.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/excanvas.js' %}"></script>
+    <script type="text/javascript">
+        var youdao_conv_id = 271546;
+    </script>
+    <script type="text/javascript" src="{% static 'js/conv.js' %}"></script>
+    <script charset="UTF-8" src="{% static 'js/ajaxCross.json' %}"></script>
+    {#    <script type="text/javascript" src="{% static 'js/search.min.js' %}"></script>#}
+
+
+</head>
+<body>
+<div id="body">
+    <!-- 菜单栏-->
+    <div id="header">
+        <div class="index_wrapper">
+            <a href="index.html" class="logo">
+                <img src="{% static 'imgs/logo.png' %}" width="229" height="43" alt="淘职-让求职更简单"/>
+            </a>
+            <ul class="reset" id="navheader">
+                <li><a href="/">首页</a></li>
+                <li><a href="{% url 'company' %}">公司</a></li>
+                <li class="current"><a href="{% url 'myresume' %}" >我的简历</a></li>
+            </ul>
+            <!-- 用户已登录-->
+            {% if logined %}
+                <div class="navheader_dropdown">
+                    <botton class="navheader_bropbtn">欢迎回来，{{ user_real_name }}
+                        <!--<img src="{% static 'imgs/drop.png' %}"> --></botton>
+                    <div class="navheader_dropdown_content">
+                        <a href="{% url 'myresume' %}">我的简历</a>
+                        <a href="{% url 'mycollection' %}">我的收藏</a>
+                        <a href="{% url 'mydelivery' %}">我的投递</a>
+                        <a href="">账号设置</a>
+                        <a href="{% url 'logout' %}">退出</a>
+                    </div>
+                </div>
+            {% else %}
+                <ul class="loginTop">
+                    <li><a href="/user/login/">登录</a></li>
+                    <li>|</li>
+                    <li><a href="/user/register">注册</a></li>
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+{% block container %}{% endblock %}

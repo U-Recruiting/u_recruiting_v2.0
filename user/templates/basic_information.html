@@ -1,0 +1,273 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    {% load staticfiles %}
+<script id="allmobilize" charset="utf-8" src="{% static 'js/allmobilize.min.js' %}"></script>
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link rel="alternate" media="handheld"  />
+<!-- end 云适配 -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>找回密码-淘职网-最专业的互联网招聘平台</title>
+<meta property="qc:admins" content="23635710066417756375" />
+<meta content="淘职网是3W旗下的互联网领域垂直招聘网站,互联网职业机会尽在淘职网" name="description">
+<meta content="淘职,淘职网,淘职招聘,淘职, 淘职网 ,互联网招聘,淘职互联网招聘, 移动互联网招聘, 垂直互联网招聘, 微信招聘, 微博招聘, 淘职官网, 淘职百科,跳槽, 高薪职位, 互联网圈子, IT招聘, 职场招聘, 猎头招聘,O2O招聘, LBS招聘, 社交招聘, 校园招聘, 校招,社会招聘,社招" name="keywords">
+
+<meta name="baidu-site-verification" content="QIQ6KC1oZ6" />
+
+<!-- <div class="web_root"  style="display:none">http://www.lagou.com</div> -->
+<script type="text/javascript">
+var ctx = "http://www.lagou.com";
+console.log(1);
+</script>
+<link rel="Shortcut Icon" href="http://www.lagou.com/images/favicon.ico">
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"/>
+
+<script src="{% static 'js/jquery.1.10.1.min.js' %}" type="text/javascript"></script>
+
+<script type="text/javascript" src="{% static 'js/jquery.lib.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/core.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/analytics.js' %}"></script>
+
+<script type="text/javascript">
+var youdao_conv_id = 271546;
+</script>
+<script type="text/javascript" src="{% static 'js/conv.js' %}"></script>
+</head>
+
+<body id="login_bg">
+		<div class="login_header" style="margin-left: 360px;margin-top: 0px">
+        	<a href="/"><img src="{% static 'imgs/logo.png' %}" width="285" height="62" alt="淘职招聘" /></a>
+            <div id="cloud_s"><img src="{% static 'imgs/cloud_s.png' %}" width="81" height="52" alt="cloud" /></div>
+            <div id="cloud_m"><img src="{% static 'imgs/cloud_m.png' %}" width="136" height="95"  alt="cloud" /></div>
+        </div>
+
+        <div style="position: absolute;left:400px;top: 100px;height: 480px;width: 550px;background-color:rgb(250,255,189);">
+            <div style="position: absolute;top: 0px;left: 200px;float: left">
+                <h2 style="font-size: 20px;font-weight: bold">请完善个人信息</h2>
+            </div>
+            <div class="basicEdit" style="background-color:rgb(250,255,189);height: 400px;overflow: auto">
+                        <form id="profileForm" method="post" action="">
+                            {% csrf_token %}
+                            <table>
+                                    <tbody>
+                                    <tr>
+                                        <td valign="top">
+                                            <span class="redstar">*</span>
+                                        </td>
+                                        <td>
+                                            <input type="text" placeholder="姓名" value="" name="name" id="name">
+                                        </td>
+                                        <td valign="top"></td>
+                                        <td>
+                                            <ul class="profile_radio clearfix reset" id="gender_value">
+                                                <li class="current">
+                                                    男<em></em>
+                                                    <input type="radio" checked="checked" name="gender" value="男">
+                                                </li>
+                                                <li>
+                                                    女<em></em>
+                                                    <input type="radio" name="gender" value="女">
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top">
+                                            <span class="redstar">*</span>
+                                        </td>
+                                        <td>
+                                            <input type="hidden" id="topDegree" value="" name="topDegree">
+                                            <input type="button" value="学历" id="select_topDegree"
+                                                   class="profile_select_190 profile_select_normal">
+                                            <div class="boxUpDown boxUpDown_190 dn" id="box_topDegree"
+                                                 style="display: none;">
+                                                <ul>
+                                                    <li>大专</li>
+                                                    <li>本科</li>
+                                                    <li>硕士</li>
+                                                    <li>博士</li>
+                                                    <li>其他</li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                        <td valign="top">
+                                            <span class="redstar">*</span>
+                                        </td>
+                                        <td>
+                                            <input type="hidden" id="workyear" value="" name="workyear">
+                                            <input type="button" value="工作年限" id="select_workyear"
+                                                   class="profile_select_190 profile_select_normal">
+                                            <div class="boxUpDown boxUpDown_190 dn" id="box_workyear"
+                                                 style="display: none;">
+                                                <ul>
+                                                    <li>应届毕业生</li>
+                                                    <li>1年</li>
+                                                    <li>2年</li>
+                                                    <li>3年</li>
+                                                    <li>4年</li>
+                                                    <li>5年</li>
+                                                    <li>6年</li>
+                                                    <li>7年</li>
+                                                    <li>8年</li>
+                                                    <li>9年</li>
+                                                    <li>10年</li>
+                                                    <li>10年以上</li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top">
+                                            <span class="redstar">*</span>
+                                        </td>
+                                        <td colspan="3">
+                                            <input type="text" placeholder="手机号码" value="" name="tel" id="tel">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top">
+                                            <span class="redstar">*</span>
+                                        </td>
+                                        <td colspan="3">
+                                            <input type="text" placeholder="接收面试通知的邮箱" value="" name="email"
+                                                   id="email">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="top"></td>
+                                        <td colspan="3">
+                                            <input type="hidden" id="currentState" value="" name="currentState">
+                                            <input type="button" value="目前状态" id="select_currentState"
+                                                   class="profile_select_410 profile_select_normal">
+                                            <div class="boxUpDown boxUpDown_410 dn" id="box_currentState"
+                                                 style="display: none;">
+                                                <ul>
+                                                    <li>我目前已离职，可快速到岗</li>
+                                                    <li>我目前正在职，正考虑换个新环境</li>
+                                                    <li>我暂时不想找工作</li>
+                                                    <li>我是应届毕业生</li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td colspan="3">
+                                            <input type="submit" value="保 存" id="save_personal_information" class="btn_profile_save">
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                        </form><!--end #profileForm-->
+<!--{#                        <div class="new_portrait">#}-->
+<!--{#                                <div class="portrait_upload" id="portraitNo">#}-->
+<!--{#                                    <span>上传自己的头像</span>#}-->
+<!--{#                                </div>#}-->
+<!--{#                                <div class="portraitShow dn" id="portraitShow">#}-->
+<!--{#                                    <img width="120" height="120" src="">#}-->
+<!--{#                                    <span>更换头像</span>#}-->
+<!--{#                                </div>#}-->
+<!--{#                                <input type="file" value="" title="支持jpg、jpeg、gif、png格式，文件小于5M"#}-->
+<!--{#                                       onchange="img_check(this,'h/resume/uploadPhoto.json','headPic');" name="headPic"#}-->
+<!--{#                                       id="headPic" class="myfiles">#}-->
+<!--{#                                &lt;!&ndash; <input type="hidden" id="headPicHidden" /> &ndash;&gt;#}-->
+<!--{#                                <em>#}-->
+<!--{#                                    尺寸：120*120px <br>#}-->
+<!--{#                                    大小：小于5M#}-->
+<!--{#                                </em>#}-->
+<!--{#                                <span style="display:none;" id="headPic_error" class="error"></span>#}-->
+<!--{#                            </div>&lt;!&ndash;end .new_portrait&ndash;&gt;#}-->
+                    </div><!--end .basicEdit-->
+        </div>
+
+
+<script src="{% static 'js/Chart.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/profile.min.js' %}" type="text/javascript"></script>
+<script>
+$(function(){
+	$.ajax({
+        url:ctx+"/mycenter/showQRCode",
+        type:"GET",
+        async:false
+   	}).done(function(data){
+        if(data.success){
+             $('#qr_cloud_resume img').attr("src",data.content);
+        }
+   	});
+	var sessionId = "resumeQR"+314873;
+	if(!$.cookie(sessionId)){
+		$.cookie(sessionId, 0, {expires: 1});
+	}
+	if($.cookie(sessionId) &amp;&amp; $.cookie(sessionId) != 5){
+		$('#qr_cloud_resume').removeClass('dn');
+	}
+	$('#qr_cloud_resume .close').click(function(){
+		$('#qr_cloud_resume').fadeOut(200);
+		resumeQR = parseInt($.cookie(sessionId)) + 1;
+		$.cookie(sessionId, resumeQR, {expires: 1});
+	});
+	$('#save_personal_information').onclick(function(){
+    var name_input = document.getElementById('name');
+    var gender_value_input = document.getElementById('gender_value');
+    var topDegree_input = document.getElementById('topDegree');
+    var workyear_input = document.getElementById('workyear');
+    var tel_input = document.getElementById('tel');
+    var email_input = document.getElementById('email');
+    var currentState_input = document.getElementById('currentState');
+
+    windows.alert(name_input.value);
+    alert(gender_value_input.value);
+    alert(topDegree_input.value);
+    alert(workyear_input.value);
+    alert(tel_input.value);
+    alert(email_input.value);
+    alert(currentState_input.value);
+});
+});
+
+</script>
+<script type="text/javascript">
+    $(function () {
+        $('#noticeDot-1').hide();
+        $('#noticeTip a.closeNT').click(function () {
+            $(this).parent().hide();
+        });
+    });
+    var index = Math.floor(Math.random() * 2);
+    var ipArray = new Array('42.62.79.226', '42.62.79.227');
+    var url = "ws://" + ipArray[index] + ":18080/wsServlet?code=314873";
+    var CallCenter = {
+        init: function (url) {
+            var _websocket = new WebSocket(url);
+            _websocket.onopen = function (evt) {
+                console.log("Connected to WebSocket server.");
+            };
+            _websocket.onclose = function (evt) {
+                console.log("Disconnected");
+            };
+            _websocket.onmessage = function (evt) {
+                //alert(evt.data);
+                var notice = jQuery.parseJSON(evt.data);
+                if (notice.status[0] == 0) {
+                    $('#noticeDot-0').hide();
+                    $('#noticeTip').hide();
+                    $('#noticeNo').text('').show().parent('a').attr('href', ctx + '/mycenter/delivery.html');
+                    $('#noticeNoPage').text('').show().parent('a').attr('href', ctx + '/mycenter/delivery.html');
+                } else {
+                    $('#noticeDot-0').show();
+                    $('#noticeTip strong').text(notice.status[0]);
+                    $('#noticeTip').show();
+                    $('#noticeNo').text('(' + notice.status[0] + ')').show().parent('a').attr('href', ctx + '/mycenter/delivery.html');
+                    $('#noticeNoPage').text(' (' + notice.status[0] + ')').show().parent('a').attr('href', ctx + '/mycenter/delivery.html');
+                }
+                $('#noticeDot-1').hide();
+            };
+            _websocket.onerror = function (evt) {
+                console.log('Error occured: ' + evt);
+            };
+        }
+    };
+    CallCenter.init(url);
+</script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+
+
+#container_search{width:1024px; height:50px ;margin:35px auto; }
+
+#search_box{width:744px;height:41px; margin: 36px auto 0px}
+#search_input{border:2px solid #f4790b;border-right:none;width:574px; height:23px; line-height:23px;float:left;font-size:16px;padding:7px 8px;margin:0;}
+#search_button{height:41px;width:152px; color:#FFF; font-size:18px;border:none;background: #f4790b;float:right; cursor:pointer;}
+#search_button:hover{background: #f4790b;}
+#search_box{border:2px solid #F4A002;width:740px;height:37px; position:relative;}
+#search_input{width:476px; height:23px; line-height:23px;float:left;font-size:16px;padding:7px 8px 7px 10px;margin:0 0 0 94px;border:0;}
+#search_button{height:37px;width:152px; color:#FFF; font-size:18px;border:none;background:#F4A002;float:right; cursor:pointer;}
+#search_button:hover{background: #f4900d;}
+#searchType{cursor:pointer;position:absolute;list-style:none;padding:0;margin:0;width:98px;background:#fff;left:-2px;top:0;}
+#searchType li{font-size:16px;height:23px;line-height:24px;padding:7px 22px;border:2px solid #F4A002;display:none;}
+#searchType li.type_selected{height:23px;border-left:2px solid #F4A002;border-right:2px solid #F4A002;border-top:0;border-bottom:0;display:block;}
+.searchtype_arrow{ height:0;width:0;overflow: hidden;font-size: 0;line-height: 0; border-width:5px 5px 0; border-style:solid dashed; border-color:#F4A002 transparent transparent;-webkit-transition:all 0.4s ease 0s;-moz-transition:all 0.4s ease 0s;-ms-transition:all 0.4s ease 0s;transition:all 0.4s ease 0s; position:absolute; top:18px;left:73px;}
+.searchtype_arrow.transform{-webkit-transform:rotate(180deg);-moz-transform:rotate(180deg);-ms-transform:rotate(180deg);transform: rotate(180deg);-webkit-transition:all 0.4s ease 0s;-moz-transition:all 0.4s ease 0s;-ms-transition:all 0.4s ease 0s;transition:all 0.4s ease 0s;}
+
+
+/*hotSearch*/
+#hotSearch_box{width:744px;height:41px; margin: 6px auto 0px}
+#hotSearch{overflow:hidden;}
+#hotSearch dt,#hotSearch dd{float:left;}
+#hotSearch dt{width:90px;font-size:16px;}
+#hotSearch dd{margin-right:20px;}
+#hotSearch dd a:hover{text-decoration:underline;}
+.breakline{height:10px; background: url(../imgs/breakline.gif) repeat-x;margin-bottom:15px; }
+
+/*大图背景*/
+#container_bigbg{width:100%; height:432px ;margin:35px auto; }
+#content_bigbg{ width:100%;height:432px;background-color: #F5C417}
+#content_bar{ width:1024px;height:432px;margin: auto}
+/**左侧菜单栏*/
+#sidebar{width:230px;  position: absolute; z-index:101; }
+/*.fixed {position:fixed !important; !* IE 6 不支持 fixed，只能用 absolute *!top:0 !important;}*/
+#sidebar .mainNavs{background:#fafafa; height: 432px}
+#sidebar .menu_box{width:230px;height:108px}
+#sidebar .menu_main{width:206px;padding:6px 12px; *padding-bottom:10px;  border-right:none;overflow:hidden;}
+#sidebar .menu_main h2{font-size:16px;margin:5px 0 ;padding-left:8px;font-weight:bold; /* background:url(img/arr.png) right 5px no-repeat; */}
+#sidebar .menu_main h2 span{width:13px;height:14px;background:url(../imgs/arr.png) 0 0 no-repeat;float:right; margin-top:3px;*margin-top:-15px;}
+#sidebar .menu_main a{float:left;white-space:nowrap;margin:0 5px 5px 0;padding:0 8px;*padding:0 6px;}
+#sidebar .menu_main a:hover{/* background:#F4A002; */ color:#F4A002;text-decoration:underline;}
+#sidebar .current .menu_main{background:#fff; border:1px solid #c9cbce; border-right:none; z-index:102;}
+#sidebar .menu_sub{width:540px;padding:15px 30px 5px 30px; position:absolute;top:0;left:230px; z-index:101; border:1px solid #c9cbce;background:#fff;}
+#sidebar .menu_sub dl{margin:0 0 20px;*position:relative;}
+#sidebar .menu_sub dt{width:70px;font-size:14px;margin:0;text-align:right;position:absolute;*left:0;}
+#sidebar .menu_sub dt a{padding:0; color:#333;line-height:28px;text-decoration:underline;}
+#sidebar .menu_sub dt a:hover{color:#F4A002; text-decoration:underline;}
+#sidebar .menu_sub dd{margin-left:100px;overflow:hidden;}
+#sidebar .menu_sub dd a{white-space:nowrap;padding:0 10px;background:url(../imgs/arr.png) -29px center no-repeat; color:#777;line-height:28px;margin-left:-1px;}
+#sidebar .menu_sub dd a:hover{color:#F4A002; text-decoration:underline;}
+#sidebar .menu_sub dd a.curr{color:#F4A002;background-position:-29px center !important;}
+#sidebar .subscribe{display:block;font-size:18px;height:46px;line-height:46px;background:#fafafa url(../imgs/sub_icon.png) 180px center no-repeat;padding:0 80px 0 20px;margin-top:12px;border-bottom:2px solid #F4A002;}
+
+/*热门职位，最新职位*/
+#container_body{clear:both;width:1024px;float: none; margin:auto;padding-bottom:100px; position: relative;top:66px }
+
+#container_new_body{clear:both;width:1024px;float: none; margin:auto;padding-bottom:100px; position: relative;top:36px }
+
+
+.btn{font-size:16px;color:#fff;background:#F5B414 url(../imgs/arrow.png) 88px center no-repeat;padding:5px 40px 5px 15px;margin:10px 0 0 0;}
+.btn:hover{background-color:#D69700; color:#fff;}
+ul.hotabbing{height: 38px;font-size: 0;background:#f6f6f6;clear: both; position: relative;top:30px}
+ul.hotabbing li{cursor:pointer;display:inline-block;*display:inline;*zoom:1;padding:7px 20px;font-size:18px;color:#999;float: left}
+ul.hotabbing li.current{border-top:3px solid #f4a002;background:#fff;color:#333; float: left}
+ul.hotabbing li.recommendNew{position:relative;}
+ul.hotabbing li i{width: 23px;height: 15px;position:absolute;right:-10px; top:-5px;background:url(../imgs/icon_new.png) left top no-repeat;}
+ul.hot_pos{clear:both; position:relative;  top:30px;}
+.hot_pos li{padding:13px; line-height:25px; position:relative; }
+ul.hot_pos i{width: 12px;height: 14px;background:url(../imgs/hot.png) left top no-repeat;left:0;}
+.apply{ position: absolute; right:0; background:#ff9a10; color:#fff; font-size:16px;  line-height:25px; cursor:pointer; }
+.apply:hover{ background-color:#d9830e;}
+.hot_pos .apply a{color:#fff; display:block;padding:0 8px;}
+
+.hot_pos .apply a:hover{color:#fff; }
+.hot_pos .apply a.sended{background:#bfbfbf;width:64px;text-align:center;}
+.hot_pos .odd{background:#fafafa;}
+.hot_pos a{font-size:16px; color:#333; }
+.hot_pos a.btn{color:#fff;}
+.hot_pos a:hover{color:#ff9a10;}
+.hot_pos a.btn:hover{color:#fff;}
+.hot_pos a.wb{font-size:14px;color:#777;}
+.hot_pos a.wb:hover{color:#555;}
+
+
+
+.companyTags li{font-size:12px;float:left; padding:0 5px; background:#fff; border:1px solid #a9a9a9;color:#a9a9a9;margin:5px 15px 0 0; line-height:18px;}
+#backtop{display:none;background:url(../imgs/backtop.png) left top no-repeat;width:28px;height:64px;position:fixed;bottom:80px;margin-left:1200px; cursor:pointer;}
+#backtop:hover{background-position:right top !important;}
+

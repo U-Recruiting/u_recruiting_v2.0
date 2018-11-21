@@ -1,0 +1,197 @@
+<dd id="form_container">
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="{% static 'js/echarts.min.js' %}"></script>
+    <script src="{% static 'js/china.js' %}"></script>
+    <script>
+        var max_data = [{name:"黑龙江",value:1},{name:"吉林",value:0},{name:"辽宁",value:2},{name:"北京",value:9},{name:"天津",value:5},{name:"河北",value:6},{name:"山东",value:5},{name:"山西",value:3},{name:"内蒙古",value:1},{name:"宁夏",value:2},{name:"陕西",value:1},{name:"河南",value:2},{name:"江苏",value:3},{name:"安徽",value:4},{name:"上海",value:5},{name:"浙江",value:1},{name:"福建",value:4},{name:"台湾",value:0},{name:"江西",value:3},{name:"湖北",value:6},{name:"湖南",value:2},{name:"广东",value:3},{name:"广西",value:2},{name:"澳门",value:0},{name:"香港",value:0},{name:"云南",value:2},{name:"贵州",value:6},{name:"重庆",value:3},{name:"四川",value:6},{name:"甘肃",value:2},{name:"青海",value:2},{name:"甘肃",value:4},{name:"西藏",value:1},{name:"新疆",value:1}];
+    </script>
+
+    <div id="div04" style="width:800px;height:400px;margin:auto"></div>
+    <script>
+         var myChart2 =echarts.init(document.getElementById('div02'))
+         var myChart3 = echarts.init(document.getElementById('chart01'));
+         var myChart4 =echarts.init(document.getElementById('div04'))
+
+          option2 = {
+             title: {
+                 text: '简历反馈情况'
+             },
+             tooltip: {
+                 trigger: 'axis',
+                 axisPointer: {
+                     type: 'cross',
+                     label: {
+                         backgroundColor: '#6a7985'
+                     }
+                 }
+             },
+             legend: {
+                 data: ['简历通过','简历不合格','简历待定']
+             },
+             toolbox: {
+                 feature: {
+                     saveAsImage: {}
+                 }
+             },
+             grid: {
+                 left: '3%',
+                 right: '4%',
+                 bottom: '3%',
+                 containLabel: true
+             },
+             xAxis: [
+                 {
+                     type: 'category',
+                     boundaryGap: false,
+                      data : ['2018-11-16','2018-11-17','2018-11-18','2018-11-19','2018-11-20','2018-11-21','2018-11-22']
+                 }
+             ],
+             yAxis: [
+                 {
+                     type: 'value'
+                 }
+             ],
+             series: [
+
+
+                 {
+                     name: '简历通过',
+                     type: 'line',
+                     stack: '总量',
+                     areaStyle: {},
+                     data: [20, 24, 24, 16, 18, 20, 17]
+
+                 },
+                  {
+                     name: '简历不合格',
+                     type: 'line',
+                     stack: '总量',
+                     areaStyle: {},
+                     data: [20, 15, 18, 12, 8, 6, 10]
+                 },
+                  {
+                     name: '简历待定',
+                     type: 'line',
+                     stack: '总量',
+                     areaStyle: {},
+                     data: [35, 20, 28, 19, 20, 22, 17]
+                 },
+             ]
+         };
+
+          var option3 = {
+            backgroundColor: '#FFFFFF',
+             title: {
+                 text: '人员区域分布'
+             },
+             tooltip: {
+                 trigger: 'axis',
+                 axisPointer: {
+                     type: 'cross',
+                     label: {
+                         backgroundColor: '#6a7985'
+                     }
+                 }
+             },
+
+            //左侧小导航图标
+              visualMap: {
+                min: 0,
+                max: 10,
+                  x: 'left',
+                y: 'center',
+                text:['max','min'],
+                realtime: false,
+                calculable: true,
+                inRange: {
+                    color: ['lightskyblue','yellow', 'orangered']
+                }
+            },
+
+            //配置属性
+            series: [{
+                name: '数据',
+                type: 'map',
+                mapType: 'china',
+                roam: true,
+                label: {
+                    normal: {
+                        show: true  //省份名称
+                    },
+                    emphasis: {
+                        show: false
+                    }
+                },
+                data:max_data //数据
+            }]
+    };
+
+
+
+        option4 = {
+             title: {
+                text: '学历占比',
+                left: 'left',
+               top: 20,
+                textStyle: {
+                    color: '#000000'
+        }
+    },
+            tooltip: {
+                trigger: 'item',
+                formatter: "{a} <br/>{b}: {c} ({d}%)"
+            },
+            legend: {
+                orient: 'vertical',
+                x: 'left',
+                y:'center',
+                data:['博士及以上','硕士','本科','专科','专科以下']
+            },
+            series: [
+                {
+                    name:'学历统计',
+                    type:'pie',
+                    radius: ['50%', '70%'],
+                    avoidLabelOverlap: false,
+                    label: {
+                        normal: {
+                            show: false,
+                            position: 'center'
+                        },
+                        emphasis: {
+                            show: true,
+                            textStyle: {
+                                fontSize: '30',
+                                fontWeight: 'bold'
+                            }
+                        }
+                    },
+                    labelLine: {
+                        normal: {
+                            show: false
+                        }
+                    },
+                    data:[
+                        {value:30, name:'博士及以上'},
+                        {value:160, name:'硕士'},
+                        {value:80, name:'本科'},
+                        {value:15, name:'专科'},
+                        {value:10, name:'专科以下'}
+                    ]
+                }
+            ]
+        };
+
+
+
+
+         myChart2.setOption(option2)
+         myChart3.setOption(option3)
+
+         myChart4.setOption(option4)
+    </script>
+
+</dd>
