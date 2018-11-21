@@ -62,13 +62,14 @@
     <div class="container_search">
         <div id="search_box">
 
-            <form id="searchForm" name="searchForm" action="{% url 'search' %}" method="post">
+            <form id="searchForm" action="{% url 'search' %}" method="post">
                 {% csrf_token %}
                 <ul id="searchType">
                     <li data-searchtype="1" class="type_selected">职位</li>
                     <li data-searchtype="4">公司</li>
                 </ul>
                 <div class="searchtype_arrow"></div>
+                <input type="text" id="search_input_type" name="search_input_type" tabindex="1" hidden value=""/>
                 <input type="text" id="search_input" name="search_input" tabindex="1" value=""
                        placeholder="请输入职位名称，如：产品经理"/>
                 <input type="submit" id="search_button" value="搜索"/>
@@ -404,6 +405,14 @@
         {#        <script type="text/javascript" src="{% static 'js/company_list.min.js' %}"></script>#}
         <script>
             $(function () {
+                    var type = $('.type_selected').text();
+                    $('#search_input_type').val(type);
+
+
+                    $("#searchType li").click(function () {
+                        var type = $('.type_selected').text();
+                        $('#search_input_type').val(type);
+                    });
 
 
                     /*分页 */

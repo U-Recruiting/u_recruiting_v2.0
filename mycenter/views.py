@@ -5,6 +5,7 @@ from index.models import PositionInfo, OrgInfo
 from django.core import serializers
 # Create your views here.
 import json
+from resume import utils
 
 
 def delivery(request):
@@ -42,7 +43,28 @@ def mycollection(request):
         for collection in collections:
             collection.position.adv = collection.position.positionAdvantage.split(',')[:2]
             positions.append(collection.position)
+
+        hunting_position = user.huntingintent_set.all().first()
+
+        city = hunting_position.city
+        type = hunting_position.position_type
+        position = hunting_position.position
+        if hunting_position.satrt_salary:
+            start_salary = int(hunting_position.satrt_salary[:-1])
+        else:
+            start_salary = 1000000000
+        if hunting_position.end_salary:
+            end_salary = int(hunting_position.end_salary[:-1])
+        else:
+            end_salary = 0
+
+        relate_positions = PositionInfo.objects.filter(name__icontains=position)
+        utils.guess_your_love(relate_positions, city, type, start_salary, end_salary)
+        relate_positions = sorted(relate_positions, key=lambda relate_positions: relate_positions.point)[-4:]
+
     return render(request, 'myjob_collection.html', locals())
+
+
 
 
 def collect(request):
@@ -53,6 +75,17 @@ def collect(request):
         position_id = request.POST.get('position_id', '')
         Collection.objects.create(position_id=position_id, user_id=user.id)
         data = {"message": "success"}
+        return HttpResponse(json.dumps(data, ensure_ascii=False), content_type="application/json,charset=utf-8")
+
+    return HttpResponse('ok')
+
+
+def cancel_collect(request):
+    user = request.user
+    if request.method == 'POST':
+        position_id = request.POST.get('position_id')
+        Collection.objects.filter(position_id=position_id, user_id = user.id).delete()
+        data = {'message': 'success'}
         return HttpResponse(json.dumps(data, ensure_ascii=False), content_type="application/json,charset=utf-8")
 
     return HttpResponse('ok')

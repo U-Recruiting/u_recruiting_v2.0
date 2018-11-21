@@ -37,14 +37,26 @@ def searchView(request):
         if search_input_type == '职位':
 
             objects = PositionInfo.objects
-            if city:
+            if city == '全国' or city=='':
+                objects = objects.all()
+            else:
                 objects = objects.filter(city=city)
             if distinct:
                 objects = objects.filter(distinct=distinct)
             if work_exp:
-                objects = objects.filter(work_exp=work_exp)
+                if work_exp == '应届生':
+                    objects = objects.filter(work_exp__icontains='应届')
+                elif work_exp == '3年及一下':
+                    objects = objects.filter(work_exp__icontains='1')
+                elif work_exp == '3-5年':
+                    objects = objects.filter(work_exp__icontains='3-5')
+                elif work_exp == '5-10年':
+                    objects = objects.filter(work_exp__icontains='5-10')
+                elif work_exp == '10年以上':
+                    objects = objects.filter(work_exp__icontains='5-10')
+
             if edu_exp:
-                objects = objects.filter(edu_exp=edu_exp)
+                objects = objects.filter(edu_exp__icontains=edu_exp)
             if phase:
                 objects = objects.filter(phase=phase)
             if scale:
@@ -139,7 +151,9 @@ def companyView(request):
 
 
         objects = OrgInfo.objects
-        if city:
+        if city == '全国' or city=='':
+            objects = objects.all()
+        else:
             objects = objects.filter(city=city)
         if distinct:
             objects = objects.filter(distinct=distinct)
@@ -148,7 +162,14 @@ def companyView(request):
         if edu_exp:
             objects = objects.filter(edu_exp=edu_exp)
         if phase:
-            objects = objects.filter(phase__icontains=phase)
+            if phase == '初创型':
+                objects = objects.filter(phase__icontains='不需要')
+            elif phase == '成长型':
+                objects = objects.filter(Q(phase__icontains='A') | Q(phase__icontains='B'))
+            elif phase == '成熟型':
+                objects = objects.filter(Q(phase__icontains='C') | Q(phase__icontains='D'))
+            else:
+                objects = objects.filter(phase__icontains='上市')
         if scale:
             orginfo = OrgInfo.objects.filter(scale=scale)
             objects = objects.filter(org=orginfo).all()

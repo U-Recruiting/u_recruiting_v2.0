@@ -7,213 +7,48 @@
 
         <div class="clearfix">
             <div class="content_list recommend_list">
-                <h2>拉勾网根据你的个人简历为你推荐以下职位： <a class="more" href="{% url 'myresume' %}">修改简历信息&gt;&gt;</a></h2>
+                <h2>淘职网根据你的个人简历为你推荐以下职位： <a class="more" href="{% url 'myresume' %}">修改简历信息&gt;&gt;</a></h2>
 
                 <ul class="hot_pos reset">
-                    <li class="clearfix">
-                        <div class="hot_pos_l">
-                            <div class="mb10">
-                                <a target="_blank" href="http://www.lagou.com/jobs/22194.html">产品经理</a>
-                                &nbsp;
-                                <span class="c9">[广州]</span>
+
+                    {% for position in relate_positions %}
+                        <li class="clearfix">
+                            <div class="hot_pos_l">
+                                <div class="mb10">
+                                    <a target="_blank" href="/position/{{ position.id }}">{{ position.name }}</a>
+                                    &nbsp;
+                                    <span class="c9">[{{ position.city }}]</span>
+                                </div>
+                                <span><em
+                                        class="c7">月薪：</em> {{ position.start_salary }}k-{{ position.end_salary }}k</span>
+                                <span><em class="c7">经验：</em> {{ position.work_exp }}</span>
+                                <span><em class="c7">最低学历：</em> {{ position.edu_exp }}</span>
+                                <br>
+                                <span><em class="c7">职位诱惑：</em> {{ position.positionAdvantage }}</span>
+                                <br>
+                                <span>{{ position.timedelta }}天前发布</span>
+                                <!-- <a  class="wb">分享到微博</a> -->
                             </div>
-                            <span><em class="c7">月薪：</em> 8k-15k</span>
-                            <span><em class="c7">经验：</em> 1-3年</span>
-                            <span><em class="c7">最低学历：</em> 本科</span>
-                            <br>
-                            <span><em class="c7">职位诱惑：</em> 上市公司，快速发展空间，产品的话语权</span>
-                            <br>
-                            <span>1天前发布</span>
-                            <!-- <a  class="wb">分享到微博</a> -->
-                        </div>
-                        <div class="hot_pos_r">
-                            <div class="mb10 recompany"><a target="_blank"
-                                                           href="http://www.lagou.com/c/5004.html">广州百田</a></div>
-                            <span><em class="c7">领域：</em> 移动互联网,游戏</span>
-                            <br>
-                            <span><em class="c7">阶段：</em> 上市公司</span>
-                            <span><em class="c7">规模：</em> 500-2000人</span>
-                            <ul class="companyTags reset">
-                                <li>股票期权</li>
-                                <li>专项奖金</li>
-                                <li>年底双薪</li>
-                            </ul>
-                        </div>
-                        <div class="recommend">
-                            92%
-                            <span>该职位与你的简历匹配度是92%  </span>
-                        </div>
-                    </li>
-                    <li class="odd clearfix">
-                        <div class="hot_pos_l">
-                            <div class="mb10">
-                                <a target="_blank" href="http://www.lagou.com/jobs/22194.html">产品经理</a>
-                                &nbsp;
-                                <span class="c9">[广州]</span>
+                            <div class="hot_pos_r">
+                                <div class="mb10 recompany"><a target="_blank"
+                                                               href="/search/companydetail/{{ position.org.id }}">{{ position.org.name }}</a>
+                                </div>
+                                <span><em class="c7">领域：</em> {{ position.org.domain }}</span>
+                                <br>
+                                <span><em class="c7">阶段：</em> {{ position.org.phase }}</span>
+                                <span><em class="c7">规模：</em> {{ position.org.scale }}</span>
+                                <ul class="companyTags reset">
+                                    {% for tag in position.org.tags %}
+                                        <li>{{ tag }}</li>
+                                    {% endfor %}
+                                </ul>
                             </div>
-                            <span><em class="c7">月薪：</em> 8k-15k</span>
-                            <span><em class="c7">经验：</em> 1-3年</span>
-                            <span><em class="c7">最低学历：</em> 本科</span>
-                            <br>
-                            <span><em class="c7">职位诱惑：</em> 上市公司，快速发展空间，产品的话语权</span>
-                            <br>
-                            <span>1天前发布</span>
-                            <!-- <a  class="wb">分享到微博</a> -->
-                        </div>
-                        <div class="hot_pos_r">
-                            <div class="mb10 recompany"><a target="_blank"
-                                                           href="http://www.lagou.com/c/5004.html">广州百田</a></div>
-                            <span><em class="c7">领域：</em> 移动互联网,游戏</span>
-                            <br>
-                            <span><em class="c7">阶段：</em> 上市公司</span>
-                            <span><em class="c7">规模：</em> 500-2000人</span>
-                            <ul class="companyTags reset">
-                                <li>股票期权</li>
-                                <li>专项奖金</li>
-                                <li>年底双薪</li>
-                            </ul>
-                        </div>
-                        <div class="recommend">
-                            92%
-                            <span>该职位与你的简历匹配度是92%  </span>
-                        </div>
-                    </li>
-                    <li class="clearfix">
-                        <div class="hot_pos_l">
-                            <div class="mb10">
-                                <a target="_blank" href="http://www.lagou.com/jobs/22194.html">产品经理</a>
-                                &nbsp;
-                                <span class="c9">[广州]</span>
+                            <div class="recommend">
+                                {{ position.point }}%
+                                <span>该职位与你的简历匹配度是{{ position.point }}%  </span>
                             </div>
-                            <span><em class="c7">月薪：</em> 8k-15k</span>
-                            <span><em class="c7">经验：</em> 1-3年</span>
-                            <span><em class="c7">最低学历：</em> 本科</span>
-                            <br>
-                            <span><em class="c7">职位诱惑：</em> 上市公司，快速发展空间，产品的话语权</span>
-                            <br>
-                            <span>1天前发布</span>
-                            <!-- <a  class="wb">分享到微博</a> -->
-                        </div>
-                        <div class="hot_pos_r">
-                            <div class="mb10 recompany"><a target="_blank"
-                                                           href="http://www.lagou.com/c/5004.html">广州百田</a></div>
-                            <span><em class="c7">领域：</em> 移动互联网,游戏</span>
-                            <br>
-                            <span><em class="c7">阶段：</em> 上市公司</span>
-                            <span><em class="c7">规模：</em> 500-2000人</span>
-                            <ul class="companyTags reset">
-                                <li>股票期权</li>
-                                <li>专项奖金</li>
-                                <li>年底双薪</li>
-                            </ul>
-                        </div>
-                        <div class="recommend">
-                            92%
-                            <span>该职位与你的简历匹配度是92%  </span>
-                        </div>
-                    </li>
-                    <li class="odd clearfix">
-                        <div class="hot_pos_l">
-                            <div class="mb10">
-                                <a target="_blank" href="http://www.lagou.com/jobs/22194.html">产品经理</a>
-                                &nbsp;
-                                <span class="c9">[广州]</span>
-                            </div>
-                            <span><em class="c7">月薪：</em> 8k-15k</span>
-                            <span><em class="c7">经验：</em> 1-3年</span>
-                            <span><em class="c7">最低学历：</em> 本科</span>
-                            <br>
-                            <span><em class="c7">职位诱惑：</em> 上市公司，快速发展空间，产品的话语权</span>
-                            <br>
-                            <span>1天前发布</span>
-                            <!-- <a  class="wb">分享到微博</a> -->
-                        </div>
-                        <div class="hot_pos_r">
-                            <div class="mb10 recompany"><a target="_blank"
-                                                           href="http://www.lagou.com/c/5004.html">广州百田</a></div>
-                            <span><em class="c7">领域：</em> 移动互联网,游戏</span>
-                            <br>
-                            <span><em class="c7">阶段：</em> 上市公司</span>
-                            <span><em class="c7">规模：</em> 500-2000人</span>
-                            <ul class="companyTags reset">
-                                <li>股票期权</li>
-                                <li>专项奖金</li>
-                                <li>年底双薪</li>
-                            </ul>
-                        </div>
-                        <div class="recommend">
-                            92%
-                            <span>该职位与你的简历匹配度是92%  </span>
-                        </div>
-                    </li>
-                    <li class="clearfix">
-                        <div class="hot_pos_l">
-                            <div class="mb10">
-                                <a target="_blank" href="http://www.lagou.com/jobs/22194.html">产品经理</a>
-                                &nbsp;
-                                <span class="c9">[广州]</span>
-                            </div>
-                            <span><em class="c7">月薪：</em> 8k-15k</span>
-                            <span><em class="c7">经验：</em> 1-3年</span>
-                            <span><em class="c7">最低学历：</em> 本科</span>
-                            <br>
-                            <span><em class="c7">职位诱惑：</em> 上市公司，快速发展空间，产品的话语权</span>
-                            <br>
-                            <span>1天前发布</span>
-                            <!-- <a  class="wb">分享到微博</a> -->
-                        </div>
-                        <div class="hot_pos_r">
-                            <div class="mb10 recompany"><a target="_blank"
-                                                           href="http://www.lagou.com/c/5004.html">广州百田</a></div>
-                            <span><em class="c7">领域：</em> 移动互联网,游戏</span>
-                            <br>
-                            <span><em class="c7">阶段：</em> 上市公司</span>
-                            <span><em class="c7">规模：</em> 500-2000人</span>
-                            <ul class="companyTags reset">
-                                <li>股票期权</li>
-                                <li>专项奖金</li>
-                                <li>年底双薪</li>
-                            </ul>
-                        </div>
-                        <div class="recommend">
-                            92%
-                            <span>该职位与你的简历匹配度是92%  </span>
-                        </div>
-                    </li>
-                    <li class="odd clearfix">
-                        <div class="hot_pos_l">
-                            <div class="mb10">
-                                <a target="_blank" href="http://www.lagou.com/jobs/22194.html">产品经理</a>
-                                &nbsp;
-                                <span class="c9">[广州]</span>
-                            </div>
-                            <span><em class="c7">月薪：</em> 8k-15k</span>
-                            <span><em class="c7">经验：</em> 1-3年</span>
-                            <span><em class="c7">最低学历：</em> 本科</span>
-                            <br>
-                            <span><em class="c7">职位诱惑：</em> 上市公司，快速发展空间，产品的话语权</span>
-                            <br>
-                            <span>1天前发布</span>
-                            <!-- <a  class="wb">分享到微博</a> -->
-                        </div>
-                        <div class="hot_pos_r">
-                            <div class="mb10 recompany"><a target="_blank"
-                                                           href="http://www.lagou.com/c/5004.html">广州百田</a></div>
-                            <span><em class="c7">领域：</em> 移动互联网,游戏</span>
-                            <br>
-                            <span><em class="c7">阶段：</em> 上市公司</span>
-                            <span><em class="c7">规模：</em> 500-2000人</span>
-                            <ul class="companyTags reset">
-                                <li>股票期权</li>
-                                <li>专项奖金</li>
-                                <li>年底双薪</li>
-                            </ul>
-                        </div>
-                        <div class="recommend">
-                            92%
-                            <span>该职位与你的简历匹配度是92%  </span>
-                        </div>
-                    </li>
+                        </li>
+                    {% endfor %}
                 </ul>
 
                 <form id="searchForm"></form>
@@ -231,11 +66,10 @@
             <div class="content_r">
                 <div class="mycenterR" id="myInfo">
                     <h2>我的职位管理</h2>
+
+                    <a href="{% url 'delivery_resumes' %}">我的投递</a>
+                    <br>
                     <a href="{% url 'mycollection' %}">我的收藏</a>
-                    <br>
-                    <a href="{% url 'mysubscribe' %}">我的订阅</a>
-                    <br>
-                    <a href="{% url 'mydelivery' %}">我的投递</a>
                 </div><!--end #myInfo-->
 
             </div>

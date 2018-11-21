@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 import json
 import os
+from . import utils
 
 
 # Create your views here.
@@ -42,6 +43,21 @@ def my_resume(request):
 
     resume = current_user.resume_set.all().first()
 
+    city = hunting_intent.city
+    type = hunting_intent.position_type
+    position = hunting_intent.position
+    if hunting_intent.satrt_salary:
+        start_salary = int(hunting_intent.satrt_salary[:-1])
+    else:
+        start_salary = 1000000000
+    if hunting_intent.end_salary:
+        end_salary = int(hunting_intent.end_salary[:-1])
+    else:
+        end_salary = 0
+
+    relate_positions = PositionInfo.objects.filter(name__icontains=position)
+    utils.guess_your_love(relate_positions, city, type, start_salary, end_salary)
+    relate_positions = sorted(relate_positions, key=lambda relate_positions: relate_positions.point)[-4:]
 
     return render(request, 'myresume.html', locals())
 
@@ -263,6 +279,24 @@ def mycollection(request):
         user_real_name = user.userinfo_set.all().first().name
     else:
         logined = False
+    hunting_position = user.huntingintent_set.all().first()
+
+    city = hunting_position.city
+    type = hunting_position.position_type
+    position = hunting_position.position
+    if hunting_position.satrt_salary:
+        start_salary = int(hunting_position.satrt_salary[:-1])
+    else:
+        start_salary = 1000000000
+    if hunting_position.end_salary:
+        end_salary = int(hunting_position.end_salary[:-1])
+    else:
+        end_salary = 0
+
+    relate_positions = PositionInfo.objects.filter(name__icontains=position)
+    utils.guess_your_love(relate_positions, city, type, start_salary, end_salary)
+    relate_positions = sorted(relate_positions, key=lambda relate_positions: relate_positions.point)[-4:]
+
     return  render(request, 'myjob_collection.html', locals())
 
 # 我投递的职位
@@ -294,6 +328,25 @@ def myrecommand(request):
         user_real_name = user.userinfo_set.all().first().name
     else:
         logined = False
+
+    hunting_position = user.huntingintent_set.all().first()
+
+    city = hunting_position.city
+    type = hunting_position.position_type
+    position = hunting_position.position
+    if hunting_position.satrt_salary:
+        start_salary = int(hunting_position.satrt_salary[:-1])
+    else:
+        start_salary = 1000000000
+    if hunting_position.end_salary:
+        end_salary = int(hunting_position.end_salary[:-1])
+    else:
+        end_salary = 0
+
+    relate_positions = PositionInfo.objects.filter(name__icontains=position)
+    utils.guess_your_love(relate_positions, city, type, start_salary, end_salary)
+    relate_positions = sorted(relate_positions, key=lambda relate_positions: relate_positions.point)[::-1]
+
     return  render(request,'myjob_recommand.html',locals())
 
 #简历预览
