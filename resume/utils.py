@@ -6,8 +6,7 @@
 @time: 2018/11/21
 """
 import datetime
-
-
+import random
 def guess_your_love(positions,city,type,start_salary,end_salary):
 
     for position in positions:
@@ -22,12 +21,12 @@ def guess_your_love(positions,city,type,start_salary,end_salary):
 
         point = 0
         if position.city == city:
-            point +=34
+            point +=random.randint(30,34)
         if position.type == type:
-            point += 28
+            point += random.randint(24,27)
         if int(position.start_salary[:-1]) > end_salary:
-            point += 35
+            point += random.randint(33,35)
         if int(position.start_salary[:-1]) > start_salary:
-            point += 29
+            point += random.randint(28,30)
         position.point = point
         position.timedelta = timedelta
