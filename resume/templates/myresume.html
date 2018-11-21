@@ -185,7 +185,7 @@
                     <span class="c_edit" style="top:15px; right:40px"></span>
                     <div class="basicShow" style="margin-left: 25px">
                         <div class="basicinfo">
-{#                                                        <span style="font-size: x-large;font-weight: bold">{{ hunting_intent.position }}</span><br>#}
+                            {#                                                        <span style="font-size: x-large;font-weight: bold">{{ hunting_intent.position }}</span><br>#}
                             <span> {{ hunting_intent.position | default:'无' }} |  {{ hunting_intent.city | default:'无' }}  |  {{ hunting_intent.position_type | default:'无' }} | {{ hunting_salary | default:'无' }}<br>
                             </span>
                         </div>
@@ -352,10 +352,6 @@
                     <input type="hidden" id="typeVal" value="{{ hunting_intent.position_type }}">
                     <input type="hidden" id="expectPositionVal" value="{{ hunting_intent.position }}">
                     <input type="hidden" id="expectSalaryVal" value="{{ hunting_salary }}">
-
-
-
-
 
 
                 </div><!--end #expectJob-->
@@ -1474,27 +1470,16 @@
                 <div class="mycenterR" id="myRecommend">
                     <h2>猜你喜欢 <i>匹配度</i></h2>
                     <ul class="reset">
-                        <li>
-                            <a target="_blank" href="http://www.lagou.com/jobs/22194.html">
-                                <span class="f16" style="font-size: 16px">产品经理</span>
-                                <span class="c7" style="font-size: 14px">广州百田</span>
-                                <em>92%</em>
-                            </a>
-                        </li>
-                        <li>
-                            <a target="_blank" href="http://www.lagou.com/jobs/148004.html">
-                                <span class="f16" style="font-size: 16px">产品经理</span>
-                                <span class="c7" style="font-size: 14px">短讯神州</span>
-                                <em>92%</em>
-                            </a>
-                        </li>
-                        <li>
-                            <a target="_blank" href="http://www.lagou.com/jobs/46793.html">
-                                <span class="f16" style="font-size: 16px">产品经理</span>
-                                <span class="c7" style="font-size: 14px">爱拍</span>
-                                <em>89%</em>
-                            </a>
-                        </li>
+                        {% for position in relate_positions %}
+                            <li>
+                                <a target="_blank" href="/position/{{ position.id }}">
+                                    <span class="f16" style="font-size: 16px">{{ position.name }}</span>
+                                    <span class="c7" style="font-size: 14px">{{ position.org.name | slice:"4" }}</span>
+                                    <em>{{ position.point }}%</em>
+                                </a>
+                            </li>
+                        {% endfor %}
+
                     </ul>
                     <a class="more" href="{% url 'myrecommand' %}">更多推荐职位&gt;&gt;</a>
                 </div><!--end #myRecommend-->

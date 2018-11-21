@@ -42,7 +42,7 @@
             </a>
             <ul class="reset" id="navheader">
                 <li class="current"><a href="/">首页</a></li>
-                <li><a href="/search/company">公司</a></li>
+                <li><a href="{% url 'company' %}">公司</a></li>
                 {% if logined %}
                     <li><a href="{% url 'myresume' %}">我的简历</a></li>
                 {% endif %}
@@ -370,7 +370,7 @@
                 var type = $('.type_selected').text();
                 $('#search_input_type').val(type);
             });
-            $('a').click(function () {
+            $("a[href='javascript:void(0)']").click(function () {
                 $.ajax({
                     url: "{% url 'search' %}",
                     type: 'post',

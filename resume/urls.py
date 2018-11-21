@@ -26,4 +26,8 @@ urlpatterns = [
     path('myrecommand',views.myrecommand,name = 'myrecommand'),
     path('preview',views.preview,name = 'preview'),
 
+
+
+
+
 ]

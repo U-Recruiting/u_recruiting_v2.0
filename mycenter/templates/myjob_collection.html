@@ -45,7 +45,7 @@
             <ul class="reset" id="navheader">
                 <li><a href="/">首页</a></li>
                 <li><a href="{% url 'company' %}">公司</a></li>
-                <li class="current"><a href="{% url 'myresume' %}" >我的简历</a></li>
+                <li class="current"><a href="{% url 'myresume' %}">我的简历</a></li>
             </ul>
             <!-- 用户已登录-->
             {% if logined %}
@@ -75,37 +75,41 @@
             <div class="content_list" style="margin-top: 50px">
                 <dl class="c_collections">
                     <dt>
-                    <h1><em></em>我收藏的职位</h1>
+                        <h1><em></em>我收藏的职位</h1>
                     </dt>
                     <dd>
                         <form id="collectionsForm">
                             <ul class="reset my_collections">
                                 {% for position in positions %}
                                     <li data-id="133340">
-                                    <a title="{{ position.name }}" target="_blank" href="/position/{{ position.id }}">
-                                        <img alt="{{ position.org.name }}" src="/static/org_logo/{{ position.org.id }}.jpg">
-                                    </a>
-                                    <div class="co_item">
-                                        <h2 title="{{ position.name }}">
-                                            <a target="_blank" href="/position/{{ position.id }}">
-                                                <em>{{ position.name }}</em>
-                                                <span>（{{ position.start_salary }}-{{ position.end_salary }}）</span>
-                                            </a>
-                                        </h2>
-                                        <span class="co_time">发布时间：{{ position.create_datetime }}</span>
-                                        <div class="co_cate">{{ position.org.name }} / {{ position.city }} / {{ position.work_exp }} / {{ position.edu_exp }}</div>
-                                        {% for adv in position.adv %}
-                                            <span class="co_youhuo c7">{{ adv }}</span>
-                                        {% endfor %}
-
-                                        <a class="collection_link" target="_blank" href="/position/{{ position.id }}">投个简历</a>
-                                        <i></i>
-                                        <a class="collectionCancel collection_link collected" href="javascript:;">
-                                            取消收藏
-                                            <span>已取消收藏</span>
+                                        <a title="{{ position.name }}" target="_blank"
+                                           href="/position/{{ position.id }}">
+                                            <img alt="{{ position.org.name }}"
+                                                 src="/static/org_logo/{{ position.org.id }}.jpg">
                                         </a>
-                                    </div>
-                                </li>
+                                        <div class="co_item">
+                                            <h2 title="{{ position.name }}">
+                                                <a target="_blank" href="/position/{{ position.id }}">
+                                                    <em>{{ position.name }}</em>
+                                                    <span>（{{ position.start_salary }}-{{ position.end_salary }}）</span>
+                                                </a>
+                                            </h2>
+                                            <span class="co_time">发布时间：{{ position.create_datetime }}</span>
+                                            <div class="co_cate">{{ position.org.name }} / {{ position.city }}
+                                                / {{ position.work_exp }} / {{ position.edu_exp }}</div>
+                                            {% for adv in position.adv %}
+                                                <span class="co_youhuo c7">{{ adv }}</span>
+                                            {% endfor %}
+
+                                            <a class="collection_link" target="_blank"
+                                               href="/position/{{ position.id }}">投个简历</a>
+                                            <i></i>
+                                            <a class="collectionCancel collection_link collected" href="javascript:;">
+                                                取消收藏
+                                                <span>已取消收藏</span>
+                                            </a>
+                                        </div>
+                                    </li>
                                 {% endfor %}
                             </ul>
                         </form>
@@ -122,27 +126,17 @@
                 <div class="mycenterR" id="myRecommend">
                     <h2>猜你喜欢 <i>匹配度</i></h2>
                     <ul class="reset">
-                        <li>
-                            <a target="_blank" href="http://www.lagou.com/jobs/22194.html">
-                                <span class="f16" style="font-size: 16px">产品经理</span>
-                                <span class="c7" style="font-size: 14px">广州百田</span>
-                                <em>92%</em>
-                            </a>
-                        </li>
-                        <li>
-                            <a target="_blank" href="http://www.lagou.com/jobs/148004.html">
-                                <span class="f16" style="font-size: 16px">产品经理</span>
-                                <span class="c7" style="font-size: 14px">短讯神州</span>
-                                <em>92%</em>
-                            </a>
-                        </li>
-                        <li>
-                            <a target="_blank" href="http://www.lagou.com/jobs/46793.html">
-                                <span class="f16" style="font-size: 16px">产品经理</span>
-                                <span class="c7" style="font-size: 14px">爱拍</span>
-                                <em>89%</em>
-                            </a>
-                        </li>
+                        {% for position in relate_positions %}
+                            <li>
+                                <a target="_blank" href="/position/{{ position.id }}">
+                                    <span class="f16" style="font-size: 16px">{{ position.name }}</span>
+                                    <span class="c7" style="font-size: 14px">{{ position.org.name | slice:"4" }}</span>
+                                    <em>{{ position.point }}%</em>
+                                </a>
+                            </li>
+                        {% endfor %}
+
+
                     </ul>
                     <a class="more" href="{% url 'myrecommand' %}">更多推荐职位&gt;&gt;</a>
                 </div><!--end #myRecommend-->
@@ -151,6 +145,12 @@
         <script src="style/js/collections.min.js"></script>
         <script>
             $(function () {
+
+                $('.collectionCancel').click(function () {
+
+                })
+
+
                 $('.Pagination').pager({
                     currPage: 1,
                     pageNOName: "pageNo",
@@ -166,15 +166,15 @@
     </div><!-- end #container -->
 
 </div><!-- end #body -->
-    <div id="footer">
-        <div class="wrapper">
-            <a href="h/about.html" target="_blank" rel="nofollow">联系我们</a>
-            <a href="h/af/zhaopin.html" target="_blank">互联网公司导航</a>
-            <div class="copyright">&copy;2013-2014 Lagou <a target="_blank"
-                                                            href="http://www.miitbeian.gov.cn/state/outPortal/loginPortal.action">京ICP备14023790号-2</a>
-            </div>
+<div id="footer">
+    <div class="wrapper">
+        <a href="h/about.html" target="_blank" rel="nofollow">联系我们</a>
+        <a href="h/af/zhaopin.html" target="_blank">互联网公司导航</a>
+        <div class="copyright">&copy;2013-2014 Lagou <a target="_blank"
+                                                        href="http://www.miitbeian.gov.cn/state/outPortal/loginPortal.action">京ICP备14023790号-2</a>
         </div>
     </div>
+</div>
 
 </body>
 </html>
