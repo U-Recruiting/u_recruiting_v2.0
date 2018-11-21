@@ -13,6 +13,8 @@ urlpatterns = [
     path('delivery', views.delivery, name='delivery'),
     path('mycollection', views.mycollection, name='mycollection'),
     path('collect/', views.collect, name='collect'),
+    path('cancel_collect/', views.cancel_collect, name='cancel_collect'),
+
     path('companydetail/', views.companydetail, name='companydetail'),
 
     path('get_delivery_status', views.get_delivery_status, name='status'),

@@ -65,6 +65,8 @@ def mycollection(request):
     return render(request, 'myjob_collection.html', locals())
 
 
+
+
 def collect(request):
     print(request.POST)
     user = request.user
@@ -73,6 +75,17 @@ def collect(request):
         position_id = request.POST.get('position_id', '')
         Collection.objects.create(position_id=position_id, user_id=user.id)
         data = {"message": "success"}
+        return HttpResponse(json.dumps(data, ensure_ascii=False), content_type="application/json,charset=utf-8")
+
+    return HttpResponse('ok')
+
+
+def cancel_collect(request):
+    user = request.user
+    if request.method == 'POST':
+        position_id = request.POST.get('position_id')
+        Collection.objects.filter(position_id=position_id, user_id = user.id).delete()
+        data = {'message': 'success'}
         return HttpResponse(json.dumps(data, ensure_ascii=False), content_type="application/json,charset=utf-8")
 
     return HttpResponse('ok')
