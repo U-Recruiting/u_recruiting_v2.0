@@ -59,9 +59,9 @@ def searchView(request):
                 objects = objects.filter(edu_exp__icontains=edu_exp)
             if phase:
                 objects = objects.filter(phase=phase)
-            if scale:
-                orginfo = OrgInfo.objects.filter(scale=scale)
-                objects = objects.filter(org=orginfo).all()
+            # if scale:
+            #     orginfo = OrgInfo.objects.filter(scale=scale)
+            #     objects = objects.filter(org=orginfo).all()
             if type:
                 objects = objects.filter(type=type)
             if hot_position:

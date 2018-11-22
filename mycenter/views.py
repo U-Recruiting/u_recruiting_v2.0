@@ -60,7 +60,7 @@ def mycollection(request):
 
         relate_positions = PositionInfo.objects.filter(name__icontains=position)
         utils.guess_your_love(relate_positions, city, type, start_salary, end_salary)
-        relate_positions = sorted(relate_positions, key=lambda relate_positions: relate_positions.point)[-4:]
+        relate_positions = sorted(relate_positions, key=lambda relate_positions: relate_positions.point)[::-1][:4]
 
     return render(request, 'myjob_collection.html', locals())
 
