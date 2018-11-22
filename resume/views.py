@@ -10,7 +10,7 @@ from . import utils
 
 
 # Create your views here.
-#add添加测试
+# add添加测试
 # def myresume_test(request):
 #     return render(request, "myresume.html")
 
@@ -39,23 +39,29 @@ def my_resume(request):
     edu_exp = current_user.educationexp_set.all().first()
 
     hunting_intent = current_user.huntingintent_set.all().first()
-    # hunting_salary = hunting_intent.satrt_salary+'-'+hunting_intent.end_salary
-
+    if hunting_intent.satrt_salary and hunting_intent.end_salary:
+        hunting_salary = hunting_intent.satrt_salary+'k' + '-' + hunting_intent.end_salary+'k'
+    else:
+        hunting_salary = ''
     resume = current_user.resume_set.all().first()
 
     city = hunting_intent.city
     type = hunting_intent.position_type
+
     position = hunting_intent.position
+
     if hunting_intent.satrt_salary:
-        start_salary = int(hunting_intent.satrt_salary[:-1])
+        start_salary = int(hunting_intent.satrt_salary)
     else:
         start_salary = 1000000000
     if hunting_intent.end_salary:
-        end_salary = int(hunting_intent.end_salary[:-1])
+        end_salary = int(hunting_intent.end_salary)
     else:
         end_salary = 0
-
-    relate_positions = PositionInfo.objects.filter(name__icontains=position)
+    if position:
+        relate_positions = PositionInfo.objects.filter(name__icontains=position)
+    else:
+        relate_positions = PositionInfo.objects.all()[:50]
     utils.guess_your_love(relate_positions, city, type, start_salary, end_salary)
     relate_positions = sorted(relate_positions, key=lambda relate_positions: relate_positions.point)[-4:]
 
@@ -229,19 +235,19 @@ def edit_huntingintent(request):
         city = request.POST.get('expectCity', '')
         position = request.POST.get('expectPosition', '')
         position_type = request.POST.get('type', '')
-        salary = request.POST.get('expectSalary', '')
+        salary = request.POST.get('expectSalary', '').replace('k', '')
 
         if position:
             huntingintent_exp.update(position=position)
         if position_type:
-            huntingintent_exp.update(position_type=position)
+            huntingintent_exp.update(position_type=position_type)
         if city:
             huntingintent_exp.update(city=city)
         if salary:
             split_salary = salary.split('-')
             if len(split_salary) == 2:
-                huntingintent_exp.update(satrt_salary=split_salary[0])
-                huntingintent_exp.update(end_salary=split_salary[1])
+                huntingintent_exp.update(satrt_salary=split_salary[0], end_salary=split_salary[1])
+
             else:
                 huntingintent_exp.update(satrt_salary='')
                 huntingintent_exp.update(end_salary=split_salary[0])
@@ -264,12 +270,13 @@ def edit_avatar(request):
     userinfo = user.userinfo_set.all()
     if request.method == 'POST':
         avatar = request.FILES.get('avatar', '')
-        path = os.path.join(settings.BASE_DIR, 'resume/static/avatar/'+str(user.id)+'.jpg')
+        path = os.path.join(settings.BASE_DIR, 'resume/static/avatar/' + str(user.id) + '.jpg')
         img = Image.open(avatar)
         img.save(path)
-    img_path = 'avadar/'+str(user.id)+'.jpg'
+    img_path = 'avadar/' + str(user.id) + '.jpg'
 
     return render(request, 'edit_avatar.html', locals())
+
 
 # 我收藏的职位
 def mycollection(request):
@@ -285,11 +292,11 @@ def mycollection(request):
     type = hunting_position.position_type
     position = hunting_position.position
     if hunting_position.satrt_salary:
-        start_salary = int(hunting_position.satrt_salary[:-1])
+        start_salary = int(hunting_position.satrt_salary)
     else:
         start_salary = 1000000000
     if hunting_position.end_salary:
-        end_salary = int(hunting_position.end_salary[:-1])
+        end_salary = int(hunting_position.end_salary)
     else:
         end_salary = 0
 
@@ -297,7 +304,8 @@ def mycollection(request):
     utils.guess_your_love(relate_positions, city, type, start_salary, end_salary)
     relate_positions = sorted(relate_positions, key=lambda relate_positions: relate_positions.point)[-4:]
 
-    return  render(request, 'myjob_collection.html', locals())
+    return render(request, 'myjob_collection.html', locals())
+
 
 # 我投递的职位
 def mydelivery(request):
@@ -307,7 +315,7 @@ def mydelivery(request):
         user_real_name = user.userinfo_set.all().first().name
     else:
         logined = False
-    return  render(request,'myjob_delivery.html',locals())
+    return render(request, 'myjob_delivery.html', locals())
 
 
 # 我订阅的职位
@@ -318,7 +326,8 @@ def mysubscribe(request):
         user_real_name = user.userinfo_set.all().first().name
     else:
         logined = False
-    return  render(request,'myjob_subscribe.html',locals())
+    return render(request, 'myjob_subscribe.html', locals())
+
 
 # 我的推荐
 def myrecommand(request):
@@ -335,20 +344,23 @@ def myrecommand(request):
     type = hunting_position.position_type
     position = hunting_position.position
     if hunting_position.satrt_salary:
-        start_salary = int(hunting_position.satrt_salary[:-1])
+        start_salary = int(hunting_position.satrt_salary)
     else:
         start_salary = 1000000000
     if hunting_position.end_salary:
-        end_salary = int(hunting_position.end_salary[:-1])
+        end_salary = int(hunting_position.end_salary)
     else:
         end_salary = 0
-
-    relate_positions = PositionInfo.objects.filter(name__icontains=position)
+    if position:
+        relate_positions = PositionInfo.objects.filter(name__icontains=position)
+    else:
+        relate_positions = PositionInfo.objects.all()[:50]
     utils.guess_your_love(relate_positions, city, type, start_salary, end_salary)
     relate_positions = sorted(relate_positions, key=lambda relate_positions: relate_positions.point)[::-1]
 
-    return  render(request,'myjob_recommand.html',locals())
+    return render(request, 'myjob_recommand.html', locals())
 
-#简历预览
+
+# 简历预览
 def preview(request):
-    return render(request,'preview.html')
+    return render(request, 'preview.html')

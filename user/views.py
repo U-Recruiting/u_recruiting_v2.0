@@ -221,7 +221,6 @@ def complte_user_info(request):
         work_exp = WorkExp.objects.create(user_id=user.id)
         project_exp = ProjectExp.objects.create(user_id=user.id)
         edu_exp = EducationExp.objects.create(user_id=user.id)
-        hunting_intent = HuntingIntent.objects.create(user_id=user.id)
 
         resume_name = userinfo.name+'的简历'
         resume_time = datetime.datetime.now()

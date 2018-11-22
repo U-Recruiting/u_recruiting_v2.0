@@ -24,8 +24,9 @@ SECRET_KEY = '1x%d%t*^d45-7qbm@fq9m1ra_)3ow8dn+%6)%)=#rd&tg3^f(n'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = ['10.0.97.7']
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['10.0.97.7']
+# ALLOWED_HOSTS = []
+
 
 # Application definition
 
@@ -87,8 +88,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'USER': 'root',
-        'PASSWORD': 'yaoye',
-        'HOST': 'localhost',
+        'PASSWORD': '1234.Com',
+        'HOST': '192.168.14.10',
         'PORT': '3306',
         'NAME': 'recruit_data',
 

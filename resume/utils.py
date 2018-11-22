@@ -25,9 +25,9 @@ def guess_your_love(positions,city,type,start_salary,end_salary):
             point +=34
         if position.type == type:
             point += 28
-        if int(position.start_salary[:-1]) > end_salary:
+        if int(position.start_salary) > end_salary:
             point += 35
-        if int(position.start_salary[:-1]) > start_salary:
+        if int(position.start_salary) > start_salary:
             point += 29
         position.point = point
         position.timedelta = timedelta

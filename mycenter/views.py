@@ -50,11 +50,11 @@ def mycollection(request):
         type = hunting_position.position_type
         position = hunting_position.position
         if hunting_position.satrt_salary:
-            start_salary = int(hunting_position.satrt_salary[:-1])
+            start_salary = int(hunting_position.satrt_salary)
         else:
             start_salary = 1000000000
         if hunting_position.end_salary:
-            end_salary = int(hunting_position.end_salary[:-1])
+            end_salary = int(hunting_position.end_salary)
         else:
             end_salary = 0
 

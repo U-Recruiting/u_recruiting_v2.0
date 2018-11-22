@@ -10,6 +10,7 @@ import json
 from django.conf import settings
 from user.models import MyUser
 
+
 # Create your views here.
 
 
@@ -29,7 +30,8 @@ def register01(request):
         orginfo.save()
         licese_path = os.path.join(settings.BASE_DIR, 'static/org_license/' + str(orginfo.id) + '.jpg')
         Image.open(company_license).save(licese_path)
-        OrgInfo.objects.filter(user_id=user.id).update(lincese = licese_path)
+        OrgInfo.objects.filter(user_id=user.id).update(lincese=licese_path)
+        OrgInfo.objects.filter(user_id=user.id).update(authed='yes')
         return redirect('/org_auth/register02')
     return render(request, 'register01.html', locals())
 
@@ -42,7 +44,6 @@ def complete_orginfo(request):
     user = request.user
 
     if request.method == 'POST':
-
         print(request.FILES)
         print(request.POST)
 
@@ -59,19 +60,22 @@ def complete_orginfo(request):
         logo_path = os.path.join(settings.BASE_DIR, 'static/org_logo/' + str(orginfo.id) + '.jpg')
         Image.open(logo).save(logo_path)
         OrgInfo.objects.filter(user_id=user.id).update(name=company_name, avatar=logo_path,
-                                                       type=type,  desc=desc, scale=scale,
-                                                         city=city,
-                                                        tags=tages,createTime=createTime)
+                                                       type=type, desc=desc, scale=scale,
+                                                       city=city,
+                                                       tags=tages, createTime=createTime)
         user.complete = 'yes'
         user.save()
 
-        return HttpResponse(json.dumps({'url':'/org/my_org/create'}, ensure_ascii=False), content_type="application/json,charset=utf-8")
+        return HttpResponse(json.dumps({'url': '/org/my_org/create'}, ensure_ascii=False),
+                            content_type="application/json,charset=utf-8")
 
     return render(request, 'home.html', locals())
 
 
 def home01(request):
-    return render(request, 'home.html') ##完善公司信息
+    return render(request, 'home.html')  ##完善公司信息
+
+
 def myhome(request):
     user = request.user
     # user = MyUser.objects.get(id=198)
@@ -89,22 +93,22 @@ def myhome(request):
         type = request.POST.get('select_industry_hidden', '')
         scale = request.POST.get('companySize', '')
         desc = request.POST.get('company_desc', '')
-        if str(request.POST.get("label")).strip('') not in ['',' ']:
-            tags = org_info.tags +','+ request.POST.get("label",'')
+        if str(request.POST.get("label")).strip('') not in ['', ' ']:
+            tags = org_info.tags + ',' + request.POST.get("label", '')
             print(tags)
         else:
             tags = org_info.tags
             # OrgInfo.objects.filter(user_id = user).update(logo = logo,citi = city,type = type,scale= scale,desc=desc)
 
         logo_path = os.path.join(settings.BASE_DIR, 'static/org_logo/' + str(org_info.id) + '.jpg')
-            # Image.open(logo).save(logo_path)
+        # Image.open(logo).save(logo_path)
         OrgInfo.objects.filter(user_id=user.id).update(avatar=logo_path,
-                                                           type=type, desc=desc, scale=scale,
-                                                           city=city,tags = tags
-                                                           )
-            # user.complete = 'yes'
+                                                       type=type, desc=desc, scale=scale,
+                                                       city=city, tags=tags
+                                                       )
+        # user.complete = 'yes'
         user.save()
 
         org_ifo = user.orginfo_set.all().first()
         org_ifo.tags = org_ifo.tags.split(",")
-        return render(request, "myhome.html",locals())
+        return render(request, "myhome.html", locals())

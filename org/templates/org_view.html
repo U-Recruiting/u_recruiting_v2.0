@@ -512,13 +512,13 @@
                             "<li id=\"" + resume.resume_id + "\" class=\"onlineResume\" position_id=\"" + resume.position_id + "\">" +
                             "  <div class=\"resumeShow\">" + "<label id='"+resume.resume_id+"' hidden></label>"+
                             "      <a title=\"预览" + resume.name + "的简历\" target=\"_blank\" class=\"resumeImg\"" +
-                            "         href=\"" + resume.position_id + "\">" +
-                            "          <img id='"+ resume.resume_id +"' src=\"/static/img/default_headpic.png\">" +
+                            "         href=\"/resume/preview\">" +
+                            "          <img id='"+ resume.resume_id +"' src=\"/static/avatar/photos/"+resume.resume_id+".jpg\">" +
                             "      </a>" +
                             "      <div class=\"resumeIntro\">" +
                             "          <h3 class=\"unread\">" +
                             "              <a target=\"_blank\" title=\"预览" + resume.name + "的简历\"" +
-                            "                 href=\"" + resume.position_id + "\">" +
+                            "                 href=\"/resume/preview\">" +
                             "                  " + resume.name + "的简历" +
                             "              </a>" +
                             "              <em></em>" +
@@ -567,7 +567,7 @@
                             "  <div class=\"resumeShow\">" +
                             "      <a title=\"预览" + resume.name + "的简历\" target=\"_blank\" class=\"resumeImg\"" +
                             "         href=\"" + resume.position_id + "\">" +
-                            "          <img src=\"/static/img/default_headpic.png\">" +
+                            "          <img id='"+ resume.resume_id +"' src=\"/static/avatar/photos/"+resume.resume_id+".jpg\">" +
                             "      </a>" +
                             "      <div class=\"resumeIntro\">" +
                             "          <h3 class=\"unread\">" +
@@ -622,7 +622,7 @@
                             "  <div class=\"resumeShow\">" +
                             "      <a title=\"预览" + resume.name + "的简历\" target=\"_blank\" class=\"resumeImg\"" +
                             "         href=\"" + resume.position_id + "\">" +
-                            "          <img src=\"/static/img/default_headpic.png\">" +
+                            "          <img id='"+ resume.resume_id +"' src=\"/static/avatar/photos/"+resume.resume_id+".jpg\">" +
                             "      </a>" +
                             "      <div class=\"resumeIntro\">" +
                             "          <h3 class=\"unread\">" +
@@ -674,8 +674,8 @@
                             "<li id=\"" + resume.resume_id + "\" class=\"onlineResume\" position_id=\"" + resume.position_id + "\">" +
                             "  <div class=\"resumeShow\">" +
                             "      <a title=\"预览" + resume.name + "的简历\" target=\"_blank\" class=\"resumeImg\"" +
-                            "         href=\"" + resume.position_id + "\">" +
-                            "          <img src=\"/static/img/default_headpic.png\">" +
+                            "         href=\"/resume/preview\">" +
+                            "          <img id='"+ resume.resume_id +"' src=\"/static/avatar/photos/"+resume.resume_id+".jpg\">" +
                             "      </a>" +
                             "      <div class=\"resumeIntro\">" +
                             "          <h3 class=\"unread\">" +
@@ -729,7 +729,7 @@
                             "  <div class=\"resumeShow\">" +
                             "      <a title=\"预览" + resume.name + "的简历\" target=\"_blank\" class=\"resumeImg\"" +
                             "         href=\"" + resume.position_id + "\">" +
-                            "          <img src=\"/static/img/default_headpic.png\">" +
+                            "          <img id='"+ resume.resume_id +"' src=\"/static/avatar/photos/"+resume.resume_id+".jpg\">" +
                             "      </a>" +
                             "      <div class=\"resumeIntro\">" +
                             "          <h3 class=\"unread\">" +
@@ -788,7 +788,7 @@
                             {#"  <span class=\"receivedResumeNo\"><a\n" +#}
                             {#"  href=\"unHandleResumes.html?positionId=" + position.position_id + "\">应聘简历（1）</a></span>\n" +#}
                             "  <div>" + position.position_type + " / " + position.min_salary + "k-" + position.max_salary + "k / 1-3年 / 硕士及以上</div>\n" +
-                            "  <div class=\"c9\">下线时间：" + position.post_date + "</div>\n" +
+                            "  <div class=\"c9\">上线时间：" + position.post_date + "</div>\n" +
                             "  <div class=\"links\">\n" +
                             "    <a class=\"job_edit\" href=\"javascript:confirmOrder('edit'," + position.position_id + ")\">编辑</a>\n" +
                             "    <a class=\"job_offline\" href=\"javascript:confirmOrder('offline'," + position.position_id + ")\">下线</a>\n" +
